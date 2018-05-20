@@ -1,0 +1,8 @@
+<p>
+	<label>{{label}}:
+      <select [(ngModel)]="model" (ngModelChange)=this.onChange() [compareWith]="compare">
+        <option *ngFor="let option of options" [ngValue]="option">{{option.type.name}}</option>
+      </select>
+    </label>
+	<br>
+</p>

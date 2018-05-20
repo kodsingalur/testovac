@@ -1,0 +1,29 @@
+<div>
+	<h1>Exercise definition</h1>
+	<label>Name:
+      <input [(ngModel)]="exercise.name">
+    </label>
+	<br>
+  <app-content [(model)]="exercise"></app-content>
+  <app-select-adjustable label="Tasks approach" [(model)]="exercise.tasksApproach" [options]="adjustableService.getTasksApproaches()"></app-select-adjustable>
+
+	<label>Tasks</label>
+  <button (click)="exercise.createTask()">Přidat</button>
+  <div *ngFor="let task of exercise.tasks">
+      <label>{{task}}</label>
+      <button routerLink="task/{{task.getOrder()}}">Změnit</button>
+      <button (click)="exercise.deleteTask(task)">Smazat</button>
+  </div>
+
+	<label>Questions</label>
+  <button (click)="exercise.createQuestion()">Přidat</button>
+  <div *ngFor="let question of exercise.questions">
+      <label>{{question.text}}</label>
+      <button routerLink="question/{{question.getOrder()}}">Změnit</button>
+      <button (click)="exercise.deleteQuestion(question)">Smazat</button>
+  </div>
+
+<br>
+  <button routerLink="../..">Back</button>
+
+</div>

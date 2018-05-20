@@ -1,0 +1,9 @@
+<p>
+{{exercise.definition.text}}
+</p>
+<div *ngFor="let question of exercise.questions">
+  <app-question-panel-wraper [question]="question"></app-question-panel-wraper>
+  <div *ngFor="let answer of question.answers">
+    <app-answer-panel-wraper [answer]="answer"></app-answer-panel-wraper>
+  </div>
+</div>

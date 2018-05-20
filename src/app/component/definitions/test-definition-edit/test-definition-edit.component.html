@@ -1,0 +1,25 @@
+<button (click)="signIn()">sign in</button>
+
+<div>
+	<h1>Test definition</h1>
+	<label>Name:
+      <input [(ngModel)]="test.name">
+    </label>
+	<br>
+  <app-select-adjustable label="Exercises approach" [(model)]="test.exercisesApproach" [options]="adjustableService.getExercisesApproaches()"></app-select-adjustable>
+  <app-select-adjustable label="Question approach" [(model)]="test.questionApproach" [options]="adjustableService.getQuestionsApproaches()"></app-select-adjustable>
+  <app-select-adjustable label="Evaluation" [(model)]="test.evaluationPanel" [options]="adjustableService.getEvaluationPanels()"></app-select-adjustable>
+
+  <app-select-adjustable label="Finish" [(model)]="test.finishPanel" [options]="adjustableService.getFinishPanels()"></app-select-adjustable>
+
+	<label>Exercises</label>
+  <button (click)="test.createExercise()">Přidat</button>
+  <div *ngFor="let exercise of test.exercises">
+      <label>{{exercise.name}}</label>
+      <button routerLink="exercise/{{exercise.getOrder()}}">Změnit</button>
+      <button (click)="test.deleteExercise(exercise)">Smazat</button>
+  </div>
+  <button (click)="pokus()">pokus</button>
+
+<br>
+</div>

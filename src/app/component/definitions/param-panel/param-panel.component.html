@@ -1,0 +1,15 @@
+<p>
+	{{label()}}:
+	<span *ngIf="type()=='checkbox'">
+    <input type="checkbox" [(ngModel)]="param.value">
+  </span>
+	<span *ngIf="type()=='list'">
+      <select [(ngModel)]="param.value">
+        <option *ngFor="let option of param.definition.options" [ngValue]="option">{{option}}</option>
+      </select>
+  </span>
+  <span *ngIf="type()=='number'">
+    <input type="number" [(ngModel)]="param.value">
+  </span>
+
+</p>
