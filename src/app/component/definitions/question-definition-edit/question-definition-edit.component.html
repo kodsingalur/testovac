@@ -1,11 +1,11 @@
 	<h1>Question definition</h1>
   <app-content [(model)]="question"></app-content>
 	<label>Answers</label>
-  <button (click)="question.createAnswer()">Přidat</button>
+  <button (click)="question.createAnswer()">Add</button>
   <li *ngFor="let answer of question.answers">
       <label>{{answer.answer?.text}}</label>
-      <button routerLink="answer/{{answer.getOrder()}}">Změnit</button>
-      <button (click)="question.deleteAnswer(answer)">Smazat</button>
+      <button routerLink="answer/{{answer.getOrder()}}">Edit</button>
+      <button (click)="question.deleteAnswer(answer)">Delete</button>
   </li>
   <button routerLink="../..">Back</button>
 

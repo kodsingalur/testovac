@@ -18,16 +18,16 @@ import { FileService } from '../../../services/file.service';
 export class TestDefinitionEditComponent implements OnInit {
   test: TestDefinition = this.model.test;
 
-  constructor(protected adjustableService: AdjustableService, protected model: ModelService, protected file:FileService)  { 
-    
+  constructor(protected adjustableService: AdjustableService, protected model: ModelService, protected file: FileService)  {
+
   }
 
   ngOnInit() {
 
   }
-signIn(){
-  this.file.signIn();
-}
+  signIn() {
+    this.file.signIn();
+  }
   pokus() {
     console.log(this.test.evaluationPanel.params);
   }

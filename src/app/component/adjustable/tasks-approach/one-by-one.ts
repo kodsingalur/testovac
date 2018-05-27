@@ -12,15 +12,9 @@ export class OneByOne extends TasksApproach {
     super();
   }
   getForQuestion(question: Question): TaskDefinition {
-    const count = question.exercise.test.countAnswerdQuestions(question.definition);
-    const tasks = question.definition.exercise.tasks;
-
-    if (count < tasks.length) {
-      return tasks[count];
-    } else {
-      question.exercise.test.finish = true;
-    }
+    return this.getForExercise(question.exercise);
   }
+  
   getForExercise(exercise: Exercise): TaskDefinition {
     const count = exercise.test.countExercises(exercise.definition);
     const tasks = exercise.definition.tasks;

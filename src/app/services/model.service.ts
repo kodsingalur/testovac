@@ -23,6 +23,7 @@ export class ModelService {
       this.test.evaluationPanel = new AdjustableDefinition(PointsPanelComponent);
       this.test.questionApproach = new AdjustableDefinition(OneByOne);
       this.test.finishPanel = new AdjustableDefinition(StatisticPanelComponent);
+      this.test.exercisesApproach = null;
 
       const exercise = this.test.createExercise();
       exercise.name = 'MockExercise';

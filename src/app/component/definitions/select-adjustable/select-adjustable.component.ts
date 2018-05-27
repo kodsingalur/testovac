@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SelectAdjustableComponent implements OnInit {
   @Input() label: string;
+  @Input() mandatory: boolean;
   @Input() options: AdjustableDefinition<Adjustable>[];
   @Input() model: AdjustableDefinition<Adjustable>;
   @Output() modelChange: EventEmitter<AdjustableDefinition<Adjustable>> = new EventEmitter<AdjustableDefinition<Adjustable>>();
@@ -40,6 +41,7 @@ export class SelectAdjustableComponent implements OnInit {
   }
 
   compare(val1, val2) {
+
     return val1 && val2 ? val1.type === val2.type : val1 === val2;
   }
 }

@@ -13,11 +13,11 @@
   <app-select-adjustable label="Finish" [(model)]="test.finishPanel" [options]="adjustableService.getFinishPanels()"></app-select-adjustable>
 
 	<label>Exercises</label>
-  <button (click)="test.createExercise()">Přidat</button>
+  <button (click)="test.createExercise()">Add</button>
   <div *ngFor="let exercise of test.exercises">
       <label>{{exercise.name}}</label>
-      <button routerLink="exercise/{{exercise.getOrder()}}">Změnit</button>
-      <button (click)="test.deleteExercise(exercise)">Smazat</button>
+      <button routerLink="exercise/{{exercise.getOrder()}}">Edit</button>
+      <button (click)="test.deleteExercise(exercise)">Delete</button>
   </div>
   <button (click)="pokus()">pokus</button>
 
