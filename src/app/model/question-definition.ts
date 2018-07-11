@@ -21,7 +21,7 @@ export class QuestionDefinition extends Content {
     return answer;
   }
   /**
-   * Odpoji otazku od teto odpovedi 
+   * Odpoji otazku od teto odpovedi
    */
   deleteAnswer(answer: QuestionAnswerDefinition) {
     this.answers.splice(this.answers.indexOf(answer), 1);

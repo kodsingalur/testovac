@@ -25,24 +25,24 @@ import { QuestionPanelWraperComponent } from './component/question-panel-wraper/
 import { AnswerPanelWraperComponent } from './component/answer-panel-wraper/answer-panel-wraper.component';
 import { FileService } from './services/file.service';
 import {
-    GoogleApiModule, 
-    GoogleApiService, 
-    GoogleAuthService, 
-    NgGapiClientConfig, 
+    GoogleApiModule,
+    GoogleApiService,
+    GoogleAuthService,
+    NgGapiClientConfig,
     NG_GAPI_CONFIG,
     GoogleApiConfig
-} from "ng-gapi";
+} from 'ng-gapi';
 
-let gapiClientConfig: NgGapiClientConfig = {
-    client_id: "956049352134-lovepdf3k4jo6ceijhlk0tp2hjuce75f.apps.googleusercontent.com",
-    discoveryDocs: ["https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"],
+const gapiClientConfig: NgGapiClientConfig = {
+    client_id: '956049352134-lovepdf3k4jo6ceijhlk0tp2hjuce75f.apps.googleusercontent.com',
+    discoveryDocs: ['https://analyticsreporting.googleapis.com/$discovery/rest?version=v4'],
     scope: [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/drive.readonly",
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/spreadsheets.readonly"
-    ].join(" ")
+        'https://www.googleapis.com/auth/drive',
+        'https://www.googleapis.com/auth/drive.readonly',
+        'https://www.googleapis.com/auth/spreadsheets',
+        'https://www.googleapis.com/auth/drive',
+        'https://www.googleapis.com/auth/spreadsheets.readonly'
+    ].join(' ')
 };
 
 @NgModule({
@@ -57,7 +57,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     QuestionPanelWraperComponent, AnswerPanelWraperComponent ],
   bootstrap:    [ AppComponent ],
   providers: [AdjustableService, ModelService, FileService],
-    entryComponents: [PointsPanelComponent, GamePanelComponent, ParamPanelComponent, ShowTaskComponent,
+  entryComponents: [PointsPanelComponent, GamePanelComponent, ParamPanelComponent, ShowTaskComponent,
        ShowQuestionComponent, WriteAnswerComponent, StatisticPanelComponent]
 })
 export class AppModule { }

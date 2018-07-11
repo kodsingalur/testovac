@@ -5,6 +5,8 @@ export abstract class Adjustable {
   static nameDef: string;
   static description: string;
   static params: Param[];
+  static typeOfAdjustable;
+
   paramValues: ParamValue[];
   getName() {
     return Adjustable.nameDef;

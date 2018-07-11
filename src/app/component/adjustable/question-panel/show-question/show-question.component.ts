@@ -7,6 +7,8 @@ import { QuestionPanel } from '../../../../model/abstract/question-panel';
   styleUrls: ['./show-question.component.css']
 })
 export class ShowQuestionComponent extends QuestionPanel implements OnInit {
+      static typeOfAdjustable = 'ShowQuestionComponent';
+
   static nameDef= 'Show question';
   static description: string;
 

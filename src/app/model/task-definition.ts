@@ -10,13 +10,13 @@ import { AnswerApproach } from './abstract/answer-approach';
 
 export class TaskDefinition {
   exercise: ExerciseDefinition;
-  questionApproach: AdjustableDefinition<QuestionsApproach>;
-  answerApproach: AdjustableDefinition<AnswerApproach>;
+  questionApproach: AdjustableDefinition<QuestionsApproach>= null;
+  answerApproach: AdjustableDefinition<AnswerApproach>= null;
 
-  questionPanel: AdjustableDefinition<QuestionPanel>;
-  answerPanel: AdjustableDefinition<AnswerPanel>;
-  taskPanel: AdjustableDefinition<TaskPanel>;
-  rightAnswerAlgorithm: AdjustableDefinition<RightAnswerAlgorithm>;
+  questionPanel: AdjustableDefinition<QuestionPanel>= null;
+  answerPanel: AdjustableDefinition<AnswerPanel>= null;
+  taskPanel: AdjustableDefinition<TaskPanel>= null;
+  rightAnswerAlgorithm: AdjustableDefinition<RightAnswerAlgorithm>= null;
   /**
    * vrati poradi tohoto ukolu
    */

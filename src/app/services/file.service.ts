@@ -2,71 +2,70 @@ import {Injectable, NgZone} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
 import {GoogleAuthService} from 'ng-gapi/lib/GoogleAuthService';
 import {
-    GoogleApiModule, 
-    GoogleApiService, 
-    NgGapiClientConfig, 
-    NG_GAPI_CONFIG,
-    GoogleApiConfig
-} from "ng-gapi";
+  GoogleApiModule,
+  GoogleApiService,
+  NgGapiClientConfig,
+  NG_GAPI_CONFIG,
+  GoogleApiConfig
+} from 'ng-gapi';
 
 @Injectable()
 export class FileService {
   googleAuth: any;
   private readonly gapiUrl: string = 'https://apis.google.com/js/api.js';
-  private readonly SESSION_STORAGE_KEY: string = "accessToken";
+  private readonly SESSION_STORAGE_KEY: string = 'accessToken';
   private CLIENT_ID = '956049352134-lovepdf3k4jo6ceijhlk0tp2hjuce75f.apps.googleusercontent.com';
   private API_KEY = 'AIzaSyDr3nRfMZV9qtelhrzNDEzDtYNDwY1VZIIAIzaSyDr3nRfMZV9qtelhrzNDEzDtYNDwY1VZII';
   private SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
-  private DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+  private DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
   private auth2;
 
 
   constructor(private ngZone: NgZone, private gapiService: GoogleApiService, private googleAuthService: GoogleAuthService) {
-   // this.loadGapi();
-    this.gapiService.onLoad().subscribe(()=>{this.createButton()});
+    // this.loadGapi();
+    this.gapiService.onLoad().subscribe(() => {this.createButton(); });
   }
-  
-  createButton(){
-      const node = document.createElement('button');
-      node.onclick = this.signIn;
-      node.type = 'text/javascript';
-     // node.style = 'utf-8';
-      document.getElementsByTagName('body')[0].appendChild(node);
-      node.onload = () => {
-       node.click();
-      };
+
+  createButton() {
+    const node = document.createElement('button');
+    node.onclick = this.signIn;
+    node.type = 'text/javascript';
+    // node.style = 'utf-8';
+    document.getElementsByTagName('body')[0].appendChild(node);
+    node.onload = () => {
+      node.click();
+    };
 
   }
-  
-  signIn(){
-    console.log("signIn");
-          this.googleAuthService.getAuth().subscribe((auth) => {
-            console.log("auth");
-          
-            auth.signIn().then(res => this.signInSuccessHandler(res), err => console.log(err));
-        });
+
+  signIn() {
+    console.log('signIn');
+    this.googleAuthService.getAuth().subscribe((auth) => {
+      console.log('auth');
+
+      auth.signIn().then(res => this.signInSuccessHandler(res), err => console.log(err));
+    });
   }
   private loadGapi() {
-    let node = document.createElement('script');
+    const node = document.createElement('script');
     node.src = this.gapiUrl;
     node.type = 'text/javascript';
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
     node.onload = () => {
-      
-      const node = document.createElement('button');
-      node.onclick = ()=>{
+
+      const nodeBtn = document.createElement('button');
+      nodeBtn.onclick = () => {
         this.auth();
         //  this.auth2.signIn().then(res => this.signInSuccessHandler(res), (e) => {console.log(e);});
       };
-      node.type = 'text/javascript';
-     // node.style = 'utf-8';
-      document.getElementsByTagName('body')[0].appendChild(node);
-      node.onload = () => {
-       node.click();
+      nodeBtn.type = 'text/javascript';
+      // node.style = 'utf-8';
+      document.getElementsByTagName('body')[0].appendChild(nodeBtn);
+      nodeBtn.onload = () => {
+        nodeBtn.click();
       };
-
-  //    this.auth();
+      //    this.auth();
     };
   }
 
@@ -85,27 +84,27 @@ export class FileService {
   }
 
   public signInS() {
-    console.log("Sing in called");
-    this.auth2.signIn().then(res => this.signInSuccessHandler(res), (e) => {console.log(e);});
+    console.log('Sing in called');
+    this.auth2.signIn().then(res => this.signInSuccessHandler(res), (e) => {console.log(e); });
   }
 
   signinChanged() {
-    console.log("Prihlasen");
+    console.log('Prihlasen');
     this.auth2.client.drive.files.list({
       'pageSize': 10,
-      'fields': "nextPageToken, files(id, name)"
+      'fields': 'nextPageToken, files(id, name)'
     }).then(function(response) {
       console.log(response.result.files());
     });
 
   }
-    private signInSuccessHandler(res) {
-      console.log("ngZone");
-        this.ngZone.run(() => {
-            sessionStorage.setItem(
-                this.SESSION_STORAGE_KEY, res.getAuthResponse().access_token
-            );
-        });
-    }
+  private signInSuccessHandler(res) {
+    console.log('ngZone');
+    this.ngZone.run(() => {
+      sessionStorage.setItem(
+        this.SESSION_STORAGE_KEY, res.getAuthResponse().access_token
+      );
+    });
+  }
 
 }

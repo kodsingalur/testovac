@@ -7,6 +7,8 @@ import { TaskPanel } from '../../../../model/abstract/task-panel';
   styleUrls: ['./show-task.component.css']
 })
 export class ShowTaskComponent extends TaskPanel implements OnInit {
+    static typeOfAdjustable = 'TaskPanel';
+
   static nameDef= 'Show task';
   static description: string;
 

@@ -3,8 +3,9 @@ import { Param } from './param';
 import { ParamValue } from './param-value';
 
 import { Adjustable } from './abstract/adjustable';
+import { TestovacModel } from './TestovacModel';
 
-export class AdjustableDefinition<T> {
+export class AdjustableDefinition<T>  {
   params: ParamValue[] = [];
   constructor(public type: Type<T>) {
   }

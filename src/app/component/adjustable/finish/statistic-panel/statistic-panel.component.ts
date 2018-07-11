@@ -9,6 +9,8 @@ import { FinishPanel } from '../../../../model/abstract/finish-panel';
 
 
 export class StatisticPanelComponent extends FinishPanel implements OnInit {
+    static typeOfAdjustable = 'FinishPanel';
+
   static nameDef= 'Statistic panel';
   static description: string;
 

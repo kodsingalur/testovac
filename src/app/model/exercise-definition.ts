@@ -9,7 +9,7 @@ import { AdjustableDefinition } from 'app/model/adjustable-definition';
 export class ExerciseDefinition extends Content {
   name: string;
   test: TestDefinition;
-  tasksApproach: AdjustableDefinition<TasksApproach>;
+  tasksApproach: AdjustableDefinition<TasksApproach>= null;
   questions: QuestionDefinition[] = [];
   tasks: TaskDefinition[] = [];
   /**

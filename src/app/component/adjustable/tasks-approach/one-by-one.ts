@@ -6,6 +6,7 @@ import { Exercise} from '../../../model/runing/exercise';
 import { TaskDefinition } from '../../../model/task-definition';
 
 export class OneByOne extends TasksApproach {
+    static typeOfAdjustable = 'TasksApproach';
   static nameDef = 'One by one';
   static description: string;
   constructor() {
@@ -14,7 +15,7 @@ export class OneByOne extends TasksApproach {
   getForQuestion(question: Question): TaskDefinition {
     return this.getForExercise(question.exercise);
   }
-  
+
   getForExercise(exercise: Exercise): TaskDefinition {
     const count = exercise.test.countExercises(exercise.definition);
     const tasks = exercise.definition.tasks;

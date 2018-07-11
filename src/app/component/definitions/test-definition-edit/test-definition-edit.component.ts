@@ -19,16 +19,18 @@ export class TestDefinitionEditComponent implements OnInit {
   test: TestDefinition = this.model.test;
 
   constructor(protected adjustableService: AdjustableService, protected model: ModelService, protected file: FileService)  {
+    console.log(this.test);
 
   }
 
   ngOnInit() {
-
   }
+
   signIn() {
     this.file.signIn();
   }
   pokus() {
-    console.log(this.test.evaluationPanel.params);
+        console.log(this.test);
+    console.log(this.model.testDefinitionToXml(this.test));
   }
 }
