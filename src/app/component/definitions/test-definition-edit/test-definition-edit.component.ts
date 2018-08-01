@@ -30,7 +30,8 @@ export class TestDefinitionEditComponent implements OnInit {
     this.file.signIn();
   }
   pokus() {
-        console.log(this.test);
-    console.log(this.model.testDefinitionToXml(this.test));
+   //     console.log(this.test);
+   // console.log(this.model.testDefinitionToXml(this.test));
+    this.file.save(this.model.testDefinitionToXml(this.test));
   }
 }

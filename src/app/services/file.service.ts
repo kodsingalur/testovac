@@ -2,9 +2,9 @@ import {Injectable, NgZone} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
 import {GoogleAuthService} from 'ng-gapi/lib/GoogleAuthService';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
-import { Http} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpModule} from '@angular/http';
+import {Http, RequestOptions} from '@angular/http';
 
 
 
@@ -26,11 +26,11 @@ export class FileService {
   private SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
   private DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
   private auth2;
-    private readonly API_URL: string = 'https://sheets.googleapis.com/v4/spreadsheets';
+  private readonly API_URL: string = 'https://sheets.googleapis.com/v4/spreadsheets';
 
 
   constructor(private httpClient: HttpClient, private ngZone: NgZone, private gapiService: GoogleApiService,
-     private googleAuthService: GoogleAuthService) {
+    private googleAuthService: GoogleAuthService) {
   }
 
   signIn() {
@@ -40,7 +40,7 @@ export class FileService {
       auth.signIn().then(res => this.signInSuccessHandler(res), err => console.log(err));
     });
   }
- 
+
   private signInSuccessHandler(res) {
     console.log('ngZone');
     this.ngZone.run(() => {
@@ -51,24 +51,33 @@ export class FileService {
   }
 
   public save(text) {
-    console.log(gapi.client);
-    console.log(this.gapiService);
-    
-            let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-        if (!token) {
-            throw new Error("no token set , authentication required");
-        }
-        let authtoken =  sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    if (!token) {
+      throw new Error("no token set , authentication required");
+    }
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
-    
-            this.httpClient.post(this.API_URL,{}, {
-          headers: new HttpHeaders({
-                Authorization: `Bearer ${authtoken}`
-            })
-        }).subscribe( res => console.log(res) );;
-    
-
+    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {headers: new HttpHeaders({
+      'Content-Type': 'text/xml',
+      'Authorization': 'Bearer ' + authtoken,
+      'name': 'test.xml'
+    })}).subscribe(res => console.log(res));;
   }
 
+  public saveToFile(id, text) {
+    id = '1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM'; //TODO
 
+    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    if (!token) {
+      throw new Error("no token set , authentication required");
+    }
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {headers: new HttpHeaders({
+      'Content-Type': 'text/xml',
+      'id': id,
+      'Authorization': 'Bearer ' + authtoken,
+    })}).subscribe(res => console.log(res));;
+
+
+  }
 }

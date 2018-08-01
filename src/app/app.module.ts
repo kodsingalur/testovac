@@ -24,6 +24,9 @@ import { ParamPanelComponent } from './component/definitions/param-panel/param-p
 import { QuestionPanelWraperComponent } from './component/question-panel-wraper/question-panel-wraper.component';
 import { AnswerPanelWraperComponent } from './component/answer-panel-wraper/answer-panel-wraper.component';
 import { FileService } from './services/file.service';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
+
 import {
     GoogleApiModule,
     GoogleApiService,
@@ -46,7 +49,7 @@ const gapiClientConfig: NgGapiClientConfig = {
 };
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, GoogleApiModule.forRoot({
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, HttpClientModule, GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     })],
