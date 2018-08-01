@@ -80,4 +80,20 @@ export class FileService {
 
 
   }
+  
+    public open(id) {
+    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    if (!token) {
+      throw new Error("no token set , authentication required");
+    }
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "/export", {headers: new HttpHeaders({
+      'mimeType': 'text/xml',
+      'Authorization': 'Bearer ' + authtoken,
+    })}).subscribe(res => console.log(res));;
+
+      
+
+  }
+
 }
