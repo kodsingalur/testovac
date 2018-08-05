@@ -11,6 +11,7 @@ import { RunComponent } from './component/run/run.component';
 const routes: Routes = [
   { path: '', redirectTo: '/testedit', pathMatch: 'full' },
   { path: 'testedit', component: TestDefinitionEditComponent},
+  { path: ':testid/testedit', component: TestDefinitionEditComponent},
   { path: 'testedit/exercise/:exercise_order', component: ExerciseDefinitionEditComponent},
   { path: 'testedit/exercise/:exercise_order/task/:task_order', component: TaskDefinitionEditComponent},
   { path: 'testedit/exercise/:exercise_order/question/:question_order', component: QuestionDefinitionEditComponent},

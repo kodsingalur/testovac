@@ -25,6 +25,7 @@ import {TaskDefinition } from '../model/task-definition';
 import {Question } from '../model/runing/question';
 import {Exercise } from '../model/runing/exercise';
 import {Answer } from '../model/runing/answer';
+import { FileService } from './file.service';
 
 import * as fs from 'fs';
 import * as sxml from 'sxml';
@@ -33,8 +34,25 @@ import XMLList = sxml.XMLList;
 
 @Injectable()
 export class ModelService {
-  test: TestDefinition = new TestDefinition();
+  test: TestDefinition;
+  id: String;
   classMap: Map<String, Type<any>> = new Map();
+  
+  loadTest(id) {
+   // this.file.signIn();
+                 console.log("id" + id);
+
+     if (id) {
+       if (id != this.id){
+             console.log("Open");
+
+         this.file.open(id).subscribe(res => {this.test = this.testDefinitionFromXml(res);return ()=>{return this.test}});
+       }
+    } else if (!this.test){
+      this.test = new TestDefinition();
+    }
+    return ()=>{return this.test};
+  }
 
   getClassForName(name) {
     return this.classMap.get(name);
@@ -146,7 +164,7 @@ export class ModelService {
 
 
 
-  constructor() {
+  constructor(protected file: FileService) {
     const modelDefinitionClasses = [TestDefinition, AdjustableDefinition, ExerciseDefinition, TaskDefinition,
       QuestionDefinition, QuestionAnswerDefinition, AnswerDefinition, ParamValue];
     const modelTestClasses = [Test, Exercise, Question, Answer];
@@ -161,43 +179,6 @@ export class ModelService {
     adjustableClasses.forEach((cls) =>  {
       this.classMap.set(cls.typeOfAdjustable + ' ' + cls.name, cls);
     });
-
-    // TODO pro ucely testovani
-    this.test.name = 'Mock test';
-    this.test.evaluationPanel = new AdjustableDefinition(PointsPanelComponent);
-    this.test.questionApproach = new AdjustableDefinition(OneByOne);
-    this.test.finishPanel = new AdjustableDefinition(StatisticPanelComponent);
-    this.test.exercisesApproach = null;
-
-    const exercise = this.test.createExercise();
-    exercise.name = 'MockExercise';
-    exercise.text = 'Contetn text';
-    exercise.tasksApproach = new AdjustableDefinition(OneByOneTask);
-
-    const task = exercise.createTask();
-    task.taskPanel = new AdjustableDefinition(ShowTaskComponent);
-    task.questionPanel = new AdjustableDefinition(ShowQuestionComponent);
-    task.answerApproach = new AdjustableDefinition(SameAsInDefinition);
-    task.answerPanel = new AdjustableDefinition(WriteAnswerComponent);
-    task.rightAnswerAlgorithm = new AdjustableDefinition(ExactlySame);
-
-    let question = exercise.createQuestion();
-    question.text = 'Pokusna otazka';
-    let answer = question.createAnswer();
-    let answerC = answer.createAnswer();
-    answerC.text = 'Odpoved';
-
-    question = exercise.createQuestion();
-    question.text = 'Pokusna otazka 2';
-    answer = question.createAnswer();
-    answerC = answer.createAnswer();
-    answerC.text = 'Odpoved';
-
-    // TODO pro ucely testovani
- //   const xml = this.testDefinitionToXml(this.test);
- //   console.log(xml);
- //   const testNew: TestDefinition = this.testDefinitionFromXml(xml);
- //   this.test = testNew;
   }
 
 }

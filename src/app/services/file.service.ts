@@ -57,43 +57,53 @@ export class FileService {
     }
     let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
-    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {headers: new HttpHeaders({
-      'Content-Type': 'text/xml',
-      'Authorization': 'Bearer ' + authtoken,
-      'name': 'test.xml'
-    })}).subscribe(res => console.log(res));;
+    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {
+      headers: new HttpHeaders({
+        'Content-Type': 'text/xml',
+        'Authorization': 'Bearer ' + authtoken,
+        'name': 'test.xml'
+      })
+    }).subscribe(res => console.log(res));
   }
 
   public saveToFile(id, text) {
-    id = '1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM'; //TODO
-
     let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
     if (!token) {
       throw new Error("no token set , authentication required");
     }
     let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {headers: new HttpHeaders({
-      'Content-Type': 'text/xml',
-      'id': id,
-      'Authorization': 'Bearer ' + authtoken,
-    })}).subscribe(res => console.log(res));;
+    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {
+      headers: new HttpHeaders({
+        'Content-Type': 'text/xml',
+        'id': id,
+        'Authorization': 'Bearer ' + authtoken,
+      })
+    }).subscribe(res => console.log(res));;
 
 
   }
-  
-    public open(id) {
-    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    if (!token) {
-      throw new Error("no token set , authentication required");
-    }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "/export", {headers: new HttpHeaders({
-      'mimeType': 'text/xml',
-      'Authorization': 'Bearer ' + authtoken,
-    })}).subscribe(res => console.log(res));;
 
-      
-
+  public open(id) {
+      let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+      if (!token) {
+        throw new Error("no token set , authentication required");
+      }
+      let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+      return this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
+        responseType: 'text', headers: new HttpHeaders({
+          'mimeType': 'text/xml',
+          'Authorization': 'Bearer ' + authtoken,
+        })
+      });
   }
+  public openUnautorized(id) {
+    this.httpClient.get("https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?export=" + id, {
+      responseType: 'text', headers: new HttpHeaders({
+        'mimeType': 'text/xml',
+        'Accept': 'text/xml',
+      })
+    }).subscribe(res => console.log(res));
+  }
+
 
 }
