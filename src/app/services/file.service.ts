@@ -35,19 +35,30 @@ export class FileService {
 
   signIn() {
     console.log('signIn');
-    this.googleAuthService.getAuth().subscribe((auth) => {
-      console.log('auth');
-      auth.signIn().then(res => this.signInSuccessHandler(res), err => console.log(err));
+    return new Promise((resolve, reject) => {
+      this.googleAuthService.getAuth().subscribe((auth) => {
+        console.log('auth');
+        auth.signIn().then(res => this.signInSuccessHandler(res, resolve), (err) => reject(err));
+      });
     });
   }
 
-  private signInSuccessHandler(res) {
+  private signInSuccessHandler(res, resolve) {
     console.log('ngZone');
+
     this.ngZone.run(() => {
-      sessionStorage.setItem(
-        this.SESSION_STORAGE_KEY, res.getAuthResponse().access_token
-      );
+      sessionStorage.setItem(this.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
+      resolve();
     });
+
+  }
+  
+  public signInAndSave(id, text){
+    if (!this.isSignedIn()){
+      this.signIn().then(()=>{this.saveToFile(id, text)});
+    } else {
+    this.saveToFile(id, text);
+    }
   }
 
   public save(text) {
@@ -67,6 +78,11 @@ export class FileService {
   }
 
   public saveToFile(id, text) {
+    console.log("id " + id);
+    if (!id) {
+      this.save(text)
+      return;
+    }
     let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
     if (!token) {
       throw new Error("no token set , authentication required");
@@ -83,26 +99,49 @@ export class FileService {
 
   }
 
-  public open(id) {
-      let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-      if (!token) {
-        throw new Error("no token set , authentication required");
-      }
-      let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-      return this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
-        responseType: 'text', headers: new HttpHeaders({
-          'mimeType': 'text/xml',
-          'Authorization': 'Bearer ' + authtoken,
-        })
-      });
+  public isSignedIn() {
+    return this.auth2 && this.auth2.getAuthInstance().isSignedIn;
   }
+
+  public open(id) {
+    console.log('open ' + id);
+
+
+
+    return new Promise<string>((resolve, reject) => {
+      this.openUnautorized(id).then((content) => resolve(content), () => {
+        if (this.isSignedIn()) {
+          resolve(this.openSigned(id));
+        } else {
+          this.signIn().then(res => {resolve(this.openSigned(id));}, reject);
+        }
+      });
+    });
+
+  }
+
+  private openSigned(id) {
+    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    if (!token) {
+      throw new Error("no token set , authentication required");
+    }
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    return this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
+      responseType: 'text', headers: new HttpHeaders({
+        'mimeType': 'text/xml',
+        'Authorization': 'Bearer ' + authtoken,
+      })
+    }).toPromise();
+
+  }
+
   public openUnautorized(id) {
-    this.httpClient.get("https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?export=" + id, {
+    return this.httpClient.get("https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?export=" + id, {
       responseType: 'text', headers: new HttpHeaders({
         'mimeType': 'text/xml',
         'Accept': 'text/xml',
       })
-    }).subscribe(res => console.log(res));
+    }).toPromise();
   }
 
 

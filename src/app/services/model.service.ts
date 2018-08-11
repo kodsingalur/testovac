@@ -12,20 +12,20 @@ import {AdjustableDefinition} from 'app/model/adjustable-definition';
 import {ShowQuestionComponent} from '../component/adjustable/question-panel/show-question/show-question.component';
 import {SameAsInDefinition} from '../component/adjustable/answer-approach/same-as-in-definition';
 import {WriteAnswerComponent} from '../component/adjustable/answer-panel/write-answer/write-answer.component';
-import {GamePanelComponent } from '../component/adjustable/evaluation/game-panel/game-panel.component';
-import {RightOne } from '../component/adjustable/exercises-approach/right-one';
+import {GamePanelComponent} from '../component/adjustable/evaluation/game-panel/game-panel.component';
+import {RightOne} from '../component/adjustable/exercises-approach/right-one';
 import {ExactlySame} from '../component/adjustable/right-answer-algorithm/exactly-same';
 import {TestovacModel} from '../model/TestovacModel';
 import {ExerciseDefinition} from '../model/exercise-definition';
-import {ParamValue } from '../model/param-value';
-import {QuestionAnswerDefinition } from '../model/question-answer-definition';
-import {QuestionDefinition } from '../model/question-definition';
+import {ParamValue} from '../model/param-value';
+import {QuestionAnswerDefinition} from '../model/question-answer-definition';
+import {QuestionDefinition} from '../model/question-definition';
 import {Test} from '../model/runing/test';
-import {TaskDefinition } from '../model/task-definition';
-import {Question } from '../model/runing/question';
-import {Exercise } from '../model/runing/exercise';
-import {Answer } from '../model/runing/answer';
-import { FileService } from './file.service';
+import {TaskDefinition} from '../model/task-definition';
+import {Question} from '../model/runing/question';
+import {Exercise} from '../model/runing/exercise';
+import {Answer} from '../model/runing/answer';
+import {FileService} from './file.service';
 
 import * as fs from 'fs';
 import * as sxml from 'sxml';
@@ -37,23 +37,24 @@ export class ModelService {
   test: TestDefinition;
   id: String;
   classMap: Map<String, Type<any>> = new Map();
-  
+
   loadTest(id) {
-   // this.file.signIn();
-                 console.log("id" + id);
+    console.log("id " + id);
 
-     if (id) {
-       if (id != this.id){
-             console.log("Open");
-
-         this.file.open(id).subscribe(res => {this.test = this.testDefinitionFromXml(res);return ()=>{return this.test}});
-       }
-    } else if (!this.test){
-      this.test = new TestDefinition();
-    }
-    return ()=>{return this.test};
+    return new Promise<TestDefinition>((resolve, reject) => {
+      if (id) {
+        if (id !== this.id) {
+          this.id = id;
+          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test)});
+          return;
+        }
+      } else if (!this.test) {
+        this.test = new TestDefinition();
+      }
+      resolve(this.test);
+    });
   }
-
+  
   getClassForName(name) {
     return this.classMap.get(name);
   }
@@ -157,8 +158,8 @@ export class ModelService {
   public testDefinitionToXml(test: TestDefinition): string {
     return this.toXml(test, '', new Map()).toString();
   }
-   public testDefinitionFromXml(xml: string): TestDefinition {
-    return <TestDefinition> this.fromXml(new XML(xml), new Map());
+  public testDefinitionFromXml(xml: string): TestDefinition {
+    return <TestDefinition>this.fromXml(new XML(xml), new Map());
   }
 
 
@@ -172,11 +173,11 @@ export class ModelService {
     const adjustableClasses = [SameAsInDefinition, WriteAnswerComponent, GamePanelComponent, PointsPanelComponent,
       RightOne, OneByOne, StatisticPanelComponent, ShowQuestionComponent, ExactlySame, ShowTaskComponent, OneByOneTask];
 
-    modelDefinitionClasses.forEach((cls) =>  {
+    modelDefinitionClasses.forEach((cls) => {
       this.classMap.set(cls.name, cls);
     });
 
-    adjustableClasses.forEach((cls) =>  {
+    adjustableClasses.forEach((cls) => {
       this.classMap.set(cls.typeOfAdjustable + ' ' + cls.name, cls);
     });
   }

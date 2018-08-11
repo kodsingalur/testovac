@@ -1,25 +1,31 @@
-<button (click)="signIn()">sign in</button>
+<button (click)="save()">Save</button>
 
-<div>
+<div *ngIf="this.test">
 	<h1>Test definition</h1>
-	<label>Name:
-      <input [(ngModel)]="test.name">
-    </label>
-	<br>
-  <app-select-adjustable label="Exercises approach" [(model)]="test.exercisesApproach" [options]="adjustableService.getExercisesApproaches()"></app-select-adjustable>
-  <app-select-adjustable label="Question approach" [(model)]="test.questionApproach" [options]="adjustableService.getQuestionsApproaches()"></app-select-adjustable>
-  <app-select-adjustable label="Evaluation" [(model)]="test.evaluationPanel" [options]="adjustableService.getEvaluationPanels()"></app-select-adjustable>
+	<label>Name: <input [(ngModel)]="test.name">
+	</label> <br>
+	<app-select-adjustable label="Exercises approach"
+		[(model)]="test.exercisesApproach"
+		[options]="adjustableService.getExercisesApproaches()"></app-select-adjustable>
+	<app-select-adjustable label="Question approach"
+		[(model)]="test.questionApproach"
+		[options]="adjustableService.getQuestionsApproaches()"></app-select-adjustable>
+	<app-select-adjustable label="Evaluation"
+		[(model)]="test.evaluationPanel"
+		[options]="adjustableService.getEvaluationPanels()"></app-select-adjustable>
 
-  <app-select-adjustable label="Finish" [(model)]="test.finishPanel" [options]="adjustableService.getFinishPanels()"></app-select-adjustable>
+	<app-select-adjustable label="Finish" [(model)]="test.finishPanel"
+		[options]="adjustableService.getFinishPanels()"></app-select-adjustable>
 
 	<label>Exercises</label>
-  <button (click)="test.createExercise()">Add</button>
-  <div *ngFor="let exercise of test.exercises">
-      <label>{{exercise.name}}</label>
-      <button routerLink="exercise/{{exercise.getOrder()}}">Edit</button>
-      <button (click)="test.deleteExercise(exercise)">Delete</button>
-  </div>
-  <button (click)="pokus()">pokus</button>
+	<button (click)="test.createExercise()">Add</button>
+	<div *ngFor="let exercise of test.exercises">
+		<label>{{exercise.name}}</label>
+		<button routerLink="exercise/{{exercise.getOrder()}}">Edit</button>
+		<button (click)="test.deleteExercise(exercise)">Delete</button>
+	</div>
+	<button (click)="pokus()">pokus</button>
 
-<br>
+	<br>
 </div>
+<div *ngIf="!this.test">Načítá se...</div>

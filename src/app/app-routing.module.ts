@@ -9,7 +9,7 @@ import { RunComponent } from './component/run/run.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/testedit', pathMatch: 'full' },
+  { path: '', redirectTo: '/1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM/testedit', pathMatch: 'full' },
   { path: 'testedit', component: TestDefinitionEditComponent},
   { path: ':testid/testedit', component: TestDefinitionEditComponent},
   { path: 'testedit/exercise/:exercise_order', component: ExerciseDefinitionEditComponent},

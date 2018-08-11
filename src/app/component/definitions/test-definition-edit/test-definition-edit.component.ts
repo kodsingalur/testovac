@@ -20,17 +20,14 @@ export class TestDefinitionEditComponent implements OnInit {
   test: TestDefinition;
 
   constructor(protected adjustableService: AdjustableService, protected model: ModelService, protected file: FileService, private route: ActivatedRoute)  {
-    var id = this.route.snapshot.paramMap.get('testid');
-    console.log(this.route.snapshot.paramMap.get('testid'));
-    console.log("" + id);
-    this.test = this.model.loadTest(this.route.snapshot.paramMap.get('testid'))();
+    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test)=>{this.test=test});
   }
 
   ngOnInit() {
   }
 
-  signIn() {
-    this.file.signIn();
+  save() {
+    this.file.signInAndSave(this.model.id, this.model.testDefinitionToXml(this.test));
   }
   
   pokus() {
@@ -39,7 +36,7 @@ export class TestDefinitionEditComponent implements OnInit {
     //this.file.save(this.model.testDefinitionToXml(this.test));
     //this.file.open('1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM');
     //this.file.saveToFile("19wGTy527rtaFVLlYk0piKGyjDwLo3sxa", this.model.testDefinitionToXml(this.model.test));
-        this.test = this.model.loadTest(this.route.snapshot.paramMap.get('testid'))();
+   //     this.test = this.model.loadTest(this.route.snapshot.paramMap.get('testid'))();
 
   }
 }
