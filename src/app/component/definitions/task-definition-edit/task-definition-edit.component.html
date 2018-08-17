@@ -1,11 +1,11 @@
 <div>
   <h1>Task definition</h1>
-  <app-select-adjustable label="Question approach" [(model)]="task.questionApproach" [options]="adjustableService.getQuestionsApproaches()"></app-select-adjustable>
-  <app-select-adjustable label="Question panel" [mandatory]="true" [(model)]="task.questionPanel" [options]="adjustableService.getQuestionPanels()"></app-select-adjustable>
-  <app-select-adjustable label="Answer panel" [mandatory]="true" [(model)]="task.answerPanel" [options]="adjustableService.getAnswerPanels()"></app-select-adjustable>
-  <app-select-adjustable label="Task panel" [(model)]="task.taskPanel" [options]="adjustableService.getTaskPanels()"></app-select-adjustable>
-  <app-select-adjustable label="Right answer algorithm" [mandatory]="true" [(model)]="task.rightAnswerAlgorithm" [options]="adjustableService.getRightAnswerAlgorithms()"></app-select-adjustable>
-  <app-select-adjustable label="Answer approach" [mandatory]="true" [(model)]="task.answerApproach" [options]="adjustableService.getAnswerApproach()"></app-select-adjustable>
+  <app-select-adjustable label="Question approach" [(model)]="task.questionApproach" [options]="model.getAdjustable('QuestionApproach')"></app-select-adjustable>
+  <app-select-adjustable label="Question panel" [mandatory]="true" [(model)]="task.questionPanel" [options]="model.getAdjustable('QuestionPanel')"></app-select-adjustable>
+  <app-select-adjustable label="Answer panel" [mandatory]="true" [(model)]="task.answerPanel" [options]="model.getAdjustable('AnswerPanel')"></app-select-adjustable>
+  <app-select-adjustable label="Task panel" [(model)]="task.taskPanel" [options]="model.getAdjustable('TaskPanel')"></app-select-adjustable>
+  <app-select-adjustable label="Right answer algorithm" [mandatory]="true" [(model)]="task.rightAnswerAlgorithm" [options]="model.getAdjustable('RightAnswerAlgorithm')"></app-select-adjustable>
+  <app-select-adjustable label="Answer approach" [mandatory]="true" [(model)]="task.answerApproach" [options]="model.getAdjustable('AnswerApproach')"></app-select-adjustable>
 
   <button routerLink="../..">Back</button>
 

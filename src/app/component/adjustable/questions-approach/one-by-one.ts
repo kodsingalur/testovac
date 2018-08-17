@@ -1,9 +1,8 @@
+import { QuestionsApproach } from '../../../model/abstract/questions-approach';
 import { QuestionDefinition } from '../../../model/question-definition';
-import { QuestionsApproach } from 'app/model/abstract/questions-approach';
 import { Question } from 'app/model/runing/question';
 
 export class OneByOne extends QuestionsApproach {
-  static typeOfAdjustable = 'QuestionsApproach';
   static nameDef = 'One by one';
   static description: string;
   private i = 0;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExerciseDefinition } from 'app/model/exercise-definition';
 import { ModelService } from 'app/services/model.service';
-import { AdjustableService } from 'app/services/adjustable.service';
 
 @Component({
   selector: 'app-exercise-definition-edit',
@@ -12,7 +11,7 @@ import { AdjustableService } from 'app/services/adjustable.service';
 export class ExerciseDefinitionEditComponent implements OnInit {
   exercise: ExerciseDefinition;
 
-  constructor(protected adjustableService: AdjustableService, private route: ActivatedRoute, protected model: ModelService) { }
+  constructor(private route: ActivatedRoute, protected model: ModelService) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('exercise_order');

@@ -9,7 +9,6 @@ import { Exercise } from '../../../../model/runing/exercise';
   styleUrls: ['./game-panel.component.css']
 })
 export class GamePanelComponent extends EvaluationPanel implements OnInit {
-  static typeOfAdjustable = 'EvaluationPanel';
 
   static nameDef = 'Game panel';
   static description: string;

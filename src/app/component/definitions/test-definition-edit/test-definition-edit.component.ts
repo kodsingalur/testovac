@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestDefinition } from '../../../model/test-definition';
 import { ExercisesApproach } from '../../../model/abstract/exercises-approach';
-import { AdjustableService } from '../../../services/adjustable.service';
 import { ModelService } from '../../../services/model.service';
 
 import { RightOne } from '../../../component/adjustable/exercises-approach/right-one';
@@ -19,8 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 export class TestDefinitionEditComponent implements OnInit {
   test: TestDefinition;
 
-  constructor(protected adjustableService: AdjustableService, protected model: ModelService, protected file: FileService, private route: ActivatedRoute)  {
-    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test)=>{this.test=test});
+  constructor(protected model: ModelService, protected file: FileService, private route: ActivatedRoute)  {
+    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test) =>  {this.test = test; });
   }
 
   ngOnInit() {
@@ -29,13 +28,13 @@ export class TestDefinitionEditComponent implements OnInit {
   save() {
     this.file.signInAndSave(this.model.id, this.model.testDefinitionToXml(this.test));
   }
-  
+
   pokus() {
    //     console.log(this.test);
    // console.log(this.model.testDefinitionToXml(this.test));
-    //this.file.save(this.model.testDefinitionToXml(this.test));
-    //this.file.open('1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM');
-    //this.file.saveToFile("19wGTy527rtaFVLlYk0piKGyjDwLo3sxa", this.model.testDefinitionToXml(this.model.test));
+    // this.file.save(this.model.testDefinitionToXml(this.test));
+    // this.file.open('1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM');
+    // this.file.saveToFile("19wGTy527rtaFVLlYk0piKGyjDwLo3sxa", this.model.testDefinitionToXml(this.model.test));
    //     this.test = this.model.loadTest(this.route.snapshot.paramMap.get('testid'))();
 
   }

@@ -6,7 +6,6 @@ import { Exercise} from '../../../model/runing/exercise';
 import { TaskDefinition } from '../../../model/task-definition';
 
 export class OneByOne extends TasksApproach {
-    static typeOfAdjustable = 'TasksApproach';
   static nameDef = 'One by one';
   static description: string;
   constructor() {

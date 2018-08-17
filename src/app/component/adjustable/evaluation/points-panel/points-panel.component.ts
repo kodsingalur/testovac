@@ -10,7 +10,6 @@ import { Param } from 'app/model/param';
   styleUrls: ['./points-panel.component.css']
 })
 export class PointsPanelComponent extends EvaluationPanel implements OnInit {
-    static typeOfAdjustable = 'EvaluationPanel';
 
   static nameDef= 'Points panel';
   static description: string;

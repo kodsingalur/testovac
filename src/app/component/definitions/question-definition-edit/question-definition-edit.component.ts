@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionDefinition } from '../../../model/question-definition';
 import { ActivatedRoute } from '@angular/router';
 import { ModelService } from '../../../services/model.service';
-import { AdjustableService } from '../../../services/adjustable.service';
 
 @Component({
   selector: 'app-question-definition-edit',
@@ -11,7 +10,7 @@ import { AdjustableService } from '../../../services/adjustable.service';
 })
 export class QuestionDefinitionEditComponent implements OnInit {
   question: QuestionDefinition;
-  constructor(protected adjustableService: AdjustableService, private route: ActivatedRoute, protected model: ModelService) { }
+  constructor(private route: ActivatedRoute, protected model: ModelService) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('exercise_order');

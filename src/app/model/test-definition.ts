@@ -1,23 +1,24 @@
-import { ModelService } from '../services/model.service';
-import { ExercisesApproach } from './abstract/exercises-approach';
-import { QuestionsApproach } from './abstract/questions-approach';
-import { EvaluationPanel } from './abstract/evaluation-panel';
-import { ExerciseDefinition } from './exercise-definition';
-import { FinishPanel } from './abstract/finish-panel';
-import { Type } from '@angular/core';
-import { AdjustableDefinition } from 'app/model/adjustable-definition';
-import { TestovacModel } from 'app/model/TestovacModel';
+import {ModelService} from '../services/model.service';
+import {ExercisesApproach} from './abstract/exercises-approach';
+import {QuestionsApproach} from './abstract/questions-approach';
+import {EvaluationPanel} from './abstract/evaluation-panel';
+import {ExerciseDefinition} from './exercise-definition';
+import {FinishPanel} from './abstract/finish-panel';
+import {QuestionDefinition} from './question-definition';
+import {Type} from '@angular/core';
+import {AdjustableDefinition} from 'app/model/adjustable-definition';
+import {TestovacModel} from 'app/model/TestovacModel';
 
 export class TestDefinition extends TestovacModel {
   name: string;
-  exercisesApproach: AdjustableDefinition<ExercisesApproach>= null;
-  questionApproach: AdjustableDefinition<QuestionsApproach>= null;
-  evaluationPanel: AdjustableDefinition<EvaluationPanel>= null;
-  finishPanel: AdjustableDefinition<FinishPanel>= null;
+  exercisesApproach: AdjustableDefinition<ExercisesApproach> = null;
+  questionApproach: AdjustableDefinition<QuestionsApproach> = null;
+  evaluationPanel: AdjustableDefinition<EvaluationPanel> = null;
+  finishPanel: AdjustableDefinition<FinishPanel> = null;
   exercises: ExerciseDefinition[] = [];
 
   constructor() {
-     super ();
+    super();
   }
 
   /**
@@ -41,8 +42,17 @@ export class TestDefinition extends TestovacModel {
   questions() {
     let result = [];
 
-    this.exercises.forEach( (exercise) => {
+    this.exercises.forEach((exercise) => {
       result = result.concat(exercise.questions);
+    });
+    return result;
+  }
+
+  answers() {
+    let result = [];
+
+    this.questions().forEach((question: QuestionDefinition) => {
+      result = result.concat(question.answers);
     });
     return result;
   }

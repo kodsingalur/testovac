@@ -16,6 +16,7 @@ import {GamePanelComponent} from '../component/adjustable/evaluation/game-panel/
 import {RightOne} from '../component/adjustable/exercises-approach/right-one';
 import {ExactlySame} from '../component/adjustable/right-answer-algorithm/exactly-same';
 import {TestovacModel} from '../model/TestovacModel';
+import { Adjustable } from '../model/abstract/adjustable';
 import {ExerciseDefinition} from '../model/exercise-definition';
 import {ParamValue} from '../model/param-value';
 import {QuestionAnswerDefinition} from '../model/question-answer-definition';
@@ -27,25 +28,36 @@ import {Exercise} from '../model/runing/exercise';
 import {Answer} from '../model/runing/answer';
 import {FileService} from './file.service';
 
-import * as fs from 'fs';
 import * as sxml from 'sxml';
 import XML = sxml.XML;
 import XMLList = sxml.XMLList;
 
 @Injectable()
 export class ModelService {
+  /** aktualni definice tesu*/
   test: TestDefinition;
+  /** id aktualni definice testu*/
   id: String;
+  /** mapa trid */
   classMap: Map<String, Type<any>> = new Map();
+  /** tridy definic */
+  modelDefinitionClasses = [TestDefinition, AdjustableDefinition, ExerciseDefinition, TaskDefinition,
+    QuestionDefinition, QuestionAnswerDefinition, AnswerDefinition, ParamValue];
 
+  /** tridy beziciho testu*/
+  modelTestClasses = [Test, Exercise, Question, Answer];
+
+  /** Adjustable tridy */
+  adjustableClasses = [SameAsInDefinition, WriteAnswerComponent, GamePanelComponent, PointsPanelComponent,
+    RightOne, OneByOne, StatisticPanelComponent, ShowQuestionComponent, ExactlySame, ShowTaskComponent, OneByOneTask];
+
+  /** nacte test dle id, 0 znamena novy test*/
   loadTest(id) {
-    console.log("id " + id);
-
     return new Promise<TestDefinition>((resolve, reject) => {
-      if (id) {
+      if (id && (id && (id !== '0'))) {
         if (id !== this.id) {
           this.id = id;
-          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test)});
+          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test); });
           return;
         }
       } else if (!this.test) {
@@ -54,11 +66,13 @@ export class ModelService {
       resolve(this.test);
     });
   }
-  
+
+  /** vrati tridu dle jmena*/
   getClassForName(name) {
     return this.classMap.get(name);
   }
 
+  /** vytvori novou instanci dle jmena*/
   newTestovacModel(name) {
     const typeT = this.getClassForName(name);
     if (typeT) {
@@ -68,6 +82,7 @@ export class ModelService {
     }
   }
 
+  /** prevedo objekt na xml */
   private toXml(model: TestovacModel, name, map: Map<Object, number>): XML {
     const xml = new XML();
     xml.setTag(name);
@@ -109,6 +124,7 @@ export class ModelService {
     return xml;
   }
 
+  /** prevede objekt z xml*/
   private fromXml(xml: XML, map: Map<number, Object>) {
     const typeProp = xml.getProperty('type');
 
@@ -155,31 +171,35 @@ export class ModelService {
     return model;
   }
 
+  /** prevede definici test na xml */
   public testDefinitionToXml(test: TestDefinition): string {
     return this.toXml(test, '', new Map()).toString();
   }
+
+  /** prevede definici test z xml */
   public testDefinitionFromXml(xml: string): TestDefinition {
     return <TestDefinition>this.fromXml(new XML(xml), new Map());
   }
 
-
-
+  /** vrati seznam AdjustableDefinition pro predany typ*/
+  public getAdjustable(typeAdj: string) {
+    const result = [];
+    this.adjustableClasses.forEach((cls) => {
+      if (cls.typeOfAdjustable === typeAdj) {
+        result.push(new AdjustableDefinition<Adjustable>(cls));
+      }
+    });
+    return result;
+  }
 
   constructor(protected file: FileService) {
-    const modelDefinitionClasses = [TestDefinition, AdjustableDefinition, ExerciseDefinition, TaskDefinition,
-      QuestionDefinition, QuestionAnswerDefinition, AnswerDefinition, ParamValue];
-    const modelTestClasses = [Test, Exercise, Question, Answer];
-
-    const adjustableClasses = [SameAsInDefinition, WriteAnswerComponent, GamePanelComponent, PointsPanelComponent,
-      RightOne, OneByOne, StatisticPanelComponent, ShowQuestionComponent, ExactlySame, ShowTaskComponent, OneByOneTask];
-
-    modelDefinitionClasses.forEach((cls) => {
+    // naplni classMap
+    this.modelDefinitionClasses.forEach((cls) => {
       this.classMap.set(cls.name, cls);
     });
 
-    adjustableClasses.forEach((cls) => {
+    this.adjustableClasses.forEach((cls) => {
       this.classMap.set(cls.typeOfAdjustable + ' ' + cls.name, cls);
     });
   }
-
 }

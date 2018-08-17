@@ -5,7 +5,7 @@
     </label>
 	<br>
   <app-content [(model)]="exercise"></app-content>
-  <app-select-adjustable label="Tasks approach" [(model)]="exercise.tasksApproach" [options]="adjustableService.getTasksApproaches()"></app-select-adjustable>
+  <app-select-adjustable label="Tasks approach" [(model)]="exercise.tasksApproach" [options]="model.getAdjustable('TasksApproach')"></app-select-adjustable>
 
 	<label>Tasks</label>
   <button (click)="exercise.createTask()">Add</button>

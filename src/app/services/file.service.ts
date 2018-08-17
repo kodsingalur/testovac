@@ -1,12 +1,10 @@
 import {Injectable, NgZone} from '@angular/core';
-import {Observable, Observer} from 'rxjs';
 import {GoogleAuthService} from 'ng-gapi/lib/GoogleAuthService';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {Http, RequestOptions} from '@angular/http';
-
-
+import {Router} from '@angular/router';
 
 import {
   GoogleApiModule,
@@ -30,9 +28,12 @@ export class FileService {
 
 
   constructor(private httpClient: HttpClient, private ngZone: NgZone, private gapiService: GoogleApiService,
-    private googleAuthService: GoogleAuthService) {
+    private googleAuthService: GoogleAuthService, private router: Router) {
   }
 
+  /***
+   * Prihlasi na googledisk
+   */
   signIn() {
     console.log('signIn');
     return new Promise((resolve, reject) => {
@@ -43,6 +44,9 @@ export class FileService {
     });
   }
 
+  /***
+   * Po prihlaseni nastavi token
+   */
   private signInSuccessHandler(res, resolve) {
     console.log('ngZone');
 
@@ -52,81 +56,92 @@ export class FileService {
     });
 
   }
-  
-  public signInAndSave(id, text){
-    if (!this.isSignedIn()){
-      this.signIn().then(()=>{this.saveToFile(id, text)});
+  /***
+   * Ulozi test do souboru s dle id. Pokud neni uzivatel prihlasen, prihlasi jej.
+   */
+  public signInAndSave(id, text) {
+    if (!this.isSignedIn()) {
+      this.signIn().then(() =>  {this.saveToFile(id, text); });
     } else {
     this.saveToFile(id, text);
     }
   }
 
+  /***
+   * Ulozi test do noveho souboru.
+   */
   public save(text) {
-    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    const token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
     if (!token) {
-      throw new Error("no token set , authentication required");
+      throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
-    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {
+    this.httpClient.post('https://www.googleapis.com/upload/drive/v3/files', text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
         'name': 'test.xml'
       })
-    }).subscribe(res => console.log(res));
+    }).subscribe(res => console.log('ID ' + res['id']));
   }
 
+  /***
+   * Ulozi test do souboru s dle id.
+   */
   public saveToFile(id, text) {
-    console.log("id " + id);
+    console.log('id ' + id);
     if (!id) {
-      this.save(text)
+      this.save(text);
       return;
     }
-    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    const token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
     if (!token) {
-      throw new Error("no token set , authentication required");
+      throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.patch('https://www.googleapis.com/upload/drive/v3/files/' + id, text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'id': id,
         'Authorization': 'Bearer ' + authtoken,
       })
-    }).subscribe(res => console.log(res));;
+    }).subscribe(res => console.log('ID ' + res['id']));
 
 
   }
-
+  /***
+   * Vraci, zda je uzivatel prihlasen
+   */
   public isSignedIn() {
     return this.auth2 && this.auth2.getAuthInstance().isSignedIn;
   }
 
+  /***
+   * Nacte test ze souboru dle id. Pokud neni uzivatel prihlasen, prihlasi jej.
+   */
   public open(id) {
-    console.log('open ' + id);
-
-
-
     return new Promise<string>((resolve, reject) => {
       this.openUnautorized(id).then((content) => resolve(content), () => {
         if (this.isSignedIn()) {
           resolve(this.openSigned(id));
         } else {
-          this.signIn().then(res => {resolve(this.openSigned(id));}, reject);
+          this.signIn().then(res => {resolve(this.openSigned(id)); }, reject);
         }
       });
     });
 
   }
-
+  /***
+   * Nacte test ze souboru dle id
+   */
   private openSigned(id) {
-    let token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    const token: string = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
     if (!token) {
-      throw new Error("no token set , authentication required");
+      throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    return this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    return this.httpClient.get('https://www.googleapis.com/drive/v3/files/' + id + '?alt=media', {
       responseType: 'text', headers: new HttpHeaders({
         'mimeType': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
@@ -135,14 +150,15 @@ export class FileService {
 
   }
 
+  /***
+   * Nacte test ze souboru dle id bez prihlaseni.
+   */
   public openUnautorized(id) {
-    return this.httpClient.get("https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?export=" + id, {
+    return this.httpClient.get('https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?export=' + id, {
       responseType: 'text', headers: new HttpHeaders({
         'mimeType': 'text/xml',
         'Accept': 'text/xml',
       })
     }).toPromise();
   }
-
-
 }

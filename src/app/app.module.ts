@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TestDefinitionEditComponent } from './component/definitions/test-definition-edit/test-definition-edit.component';
-import { AdjustableService } from './services/adjustable.service';
 import { PointsPanelComponent } from './component/adjustable/evaluation/points-panel/points-panel.component';
 import { GamePanelComponent } from './component/adjustable/evaluation/game-panel/game-panel.component';
 import { SelectAdjustableComponent } from './component/definitions/select-adjustable/select-adjustable.component';
@@ -25,7 +24,7 @@ import { QuestionPanelWraperComponent } from './component/question-panel-wraper/
 import { AnswerPanelWraperComponent } from './component/answer-panel-wraper/answer-panel-wraper.component';
 import { FileService } from './services/file.service';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import {
     GoogleApiModule,
@@ -35,6 +34,7 @@ import {
     NG_GAPI_CONFIG,
     GoogleApiConfig
 } from 'ng-gapi';
+import { ChooseAnswerComponent } from './component/definitions/choose-answer/choose-answer.component';
 
 const gapiClientConfig: NgGapiClientConfig = {
     client_id: '956049352134-lovepdf3k4jo6ceijhlk0tp2hjuce75f.apps.googleusercontent.com',
@@ -57,9 +57,9 @@ const gapiClientConfig: NgGapiClientConfig = {
     SelectAdjustableComponent, ExerciseDefinitionEditComponent, ContentComponent, StatisticPanelComponent,
     TaskDefinitionEditComponent, ShowQuestionComponent, WriteAnswerComponent, ShowTaskComponent,
     QuestionDefinitionEditComponent, AnswerDefinitionEditComponent, RunComponent, ParamPanelComponent,
-    QuestionPanelWraperComponent, AnswerPanelWraperComponent ],
+    QuestionPanelWraperComponent, AnswerPanelWraperComponent, ChooseAnswerComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [AdjustableService, ModelService, FileService],
+  providers: [ModelService, FileService],
   entryComponents: [PointsPanelComponent, GamePanelComponent, ParamPanelComponent, ShowTaskComponent,
        ShowQuestionComponent, WriteAnswerComponent, StatisticPanelComponent]
 })

@@ -2,7 +2,6 @@ import { RightAnswerAlgorithm } from 'app/model/abstract/right-answer-algorithm'
 import { Question } from 'app/model/runing/question';
 
 export class ExactlySame extends RightAnswerAlgorithm {
-  static typeOfAdjustable = 'RightAnswerAlgorithm';
   static nameDef = 'Exactly same';
   static description: string;
 

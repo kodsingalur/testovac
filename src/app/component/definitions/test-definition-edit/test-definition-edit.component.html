@@ -6,16 +6,16 @@
 	</label> <br>
 	<app-select-adjustable label="Exercises approach"
 		[(model)]="test.exercisesApproach"
-		[options]="adjustableService.getExercisesApproaches()"></app-select-adjustable>
+		[options]="model.getAdjustable('ExercisesApproach')"></app-select-adjustable>
 	<app-select-adjustable label="Question approach"
 		[(model)]="test.questionApproach"
-		[options]="adjustableService.getQuestionsApproaches()"></app-select-adjustable>
+		[options]="model.getAdjustable('TasksApproach')"></app-select-adjustable>
 	<app-select-adjustable label="Evaluation"
 		[(model)]="test.evaluationPanel"
-		[options]="adjustableService.getEvaluationPanels()"></app-select-adjustable>
+		[options]="model.getAdjustable('EvaluationPanel')"></app-select-adjustable>
 
 	<app-select-adjustable label="Finish" [(model)]="test.finishPanel"
-		[options]="adjustableService.getFinishPanels()"></app-select-adjustable>
+		[options]="model.getAdjustable('FinishPanel')"></app-select-adjustable>
 
 	<label>Exercises</label>
 	<button (click)="test.createExercise()">Add</button>
