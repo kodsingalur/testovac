@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskDefinition } from '../../../model/task-definition';
+import { TaskDefinition } from 'app/model/definitions/task-definition';
 import { ActivatedRoute } from '@angular/router';
-import { ModelService } from '../../../services/model.service';
+import { ModelService } from 'app/services/model.service';
 
 @Component({
   selector: 'app-task-definition-edit',

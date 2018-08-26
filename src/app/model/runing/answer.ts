@@ -1,6 +1,6 @@
 import { Exercise } from './exercise';
 import { Question } from './question';
-import { AnswerDefinition } from '../answer-definition';
+import { AnswerDefinition } from 'app/model/definitions/answer-definition';
 
 export class Answer {
   definition: AnswerDefinition;

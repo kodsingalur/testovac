@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Content } from '../../../model/content';
+import { Content } from 'app/model/definitions/content';
 
 @Component({
   selector: 'app-content',

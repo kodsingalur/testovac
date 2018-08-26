@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TestDefinition } from '../../../model/test-definition';
-import { ExercisesApproach } from '../../../model/abstract/exercises-approach';
-import { ModelService } from '../../../services/model.service';
+import { TestDefinition } from 'app/model/definitions/test-definition';
+import { ExercisesApproach } from 'app/model/adjustable/exercises-approach';
+import { ModelService } from 'app/services/model.service';
 
-import { RightOne } from '../../../component/adjustable/exercises-approach/right-one';
+import { RightOne } from 'app/adjustable/exercises-approach/right-one';
 
-import { PointsPanelComponent } from '../../../component/adjustable/evaluation/points-panel/points-panel.component';
-import { ExerciseDefinition } from '../../../model/exercise-definition';
-import { FileService } from '../../../services/file.service';
+import { PointsPanelComponent } from 'app/adjustable/evaluation/points-panel/points-panel.component';
+import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
+import { FileService } from 'app/services/file.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

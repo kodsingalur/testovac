@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ExerciseDefinition } from 'app/model/exercise-definition';
+import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
 import { ModelService } from 'app/services/model.service';
 
 @Component({

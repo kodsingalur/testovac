@@ -1,14 +1,14 @@
-import { TasksApproach } from '../abstract/tasks-approach';
-import { TestDefinition } from '../test-definition';
+import { TasksApproach } from 'app/model/adjustable/tasks-approach';
+import { TestDefinition } from 'app/model/definitions/test-definition';
 import { Question } from './question';
 import { Exercise } from './exercise';
-import { TaskDefinition } from 'app/model/task-definition';
+import { TaskDefinition } from 'app/model/definitions/task-definition';
 
-import { QuestionDefinition } from 'app/model/question-definition';
-import { EvaluationPanel } from 'app/model/abstract/evaluation-panel';
-import { QuestionsApproach } from 'app/model/abstract/questions-approach';
-import { ExercisesApproach } from 'app/model/abstract/exercises-approach';
-import { ExerciseDefinition } from 'app/model/exercise-definition';
+import { QuestionDefinition } from 'app/model/definitions/question-definition';
+import { EvaluationPanel } from 'app/model/adjustable/evaluation-panel';
+import { QuestionsApproach } from 'app/model/adjustable/questions-approach';
+import { ExercisesApproach } from 'app/model/adjustable/exercises-approach';
+import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
 
 export class Test {
   definition: TestDefinition;

@@ -1,7 +1,7 @@
 import { Exercise } from './exercise';
 import { Answer } from './answer';
-import { QuestionDefinition } from '../question-definition';
-import { AnswerDefinition } from '../answer-definition';
+import { QuestionDefinition } from 'app/model/definitions/question-definition';
+import { AnswerDefinition } from 'app/model/definitions/answer-definition';
 
 export class Question {
   definition: QuestionDefinition;

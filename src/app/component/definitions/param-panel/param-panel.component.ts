@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ParamValue } from 'app/model/param-value';
+import { ParamValue } from 'app/model/definitions/param-value';
 
 @Component({
   selector: 'app-param-panel',

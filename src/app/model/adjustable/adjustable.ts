@@ -1,5 +1,5 @@
-import { Param } from '../param';
-import { ParamValue } from '../param-value';
+import { Param } from 'app/model/definitions/param';
+import { ParamValue } from 'app/model/definitions/param-value';
 
 export abstract class Adjustable {
   static nameDef: string;

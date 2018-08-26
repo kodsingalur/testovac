@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionAnswerDefinition } from '../../../model/question-answer-definition';
+import { QuestionAnswerDefinition } from 'app/model/definitions/question-answer-definition';
 import { ActivatedRoute } from '@angular/router';
-import { ModelService } from '../../../services/model.service';
+import { ModelService } from 'app/services/model.service';
 
 @Component({
   selector: 'app-answer-definition-edit',

@@ -43,7 +43,7 @@ export class FileService {
       });
     });
   }
-  
+
   /***
    * Po prihlaseni nastavi token
    */
@@ -66,7 +66,7 @@ export class FileService {
     this.saveToFile(id, text);
     }
   }
-  
+
   /***
    * Ulozi test do noveho souboru.
    */
@@ -85,7 +85,7 @@ export class FileService {
       })
     }).subscribe(res => console.log('ID ' + res['id']));
   }
-  
+
   /***
    * Ulozi test do souboru s dle id.
    */
@@ -116,7 +116,7 @@ export class FileService {
   public isSignedIn() {
     return this.auth2 && this.auth2.getAuthInstance().isSignedIn;
   }
-  
+
   /***
    * Nacte test ze souboru dle id. Pokud neni uzivatel prihlasen, prihlasi jej.
    */
@@ -149,7 +149,7 @@ export class FileService {
     }).toPromise();
 
   }
-  
+
   /***
    * Nacte test ze souboru dle id bez prihlaseni.
    */

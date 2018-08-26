@@ -1,5 +1,5 @@
-import { ExerciseDefinition } from '../exercise-definition';
-import { TaskDefinition } from '../task-definition';
+import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
+import { TaskDefinition } from 'app/model/definitions/task-definition';
 import { Question } from './question';
 import { Test } from './test';
 
