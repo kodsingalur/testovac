@@ -75,9 +75,9 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
-    this.httpClient.post('https://www.googleapis.com/upload/drive/v3/files', text, {
+    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
@@ -99,8 +99,8 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.patch('https://www.googleapis.com/upload/drive/v3/files/' + id, text, {
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'id': id,
@@ -140,8 +140,8 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    return this.httpClient.get('https://www.googleapis.com/drive/v3/files/' + id + '?alt=media', {
+    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
       responseType: 'text', headers: new HttpHeaders({
         'mimeType': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
