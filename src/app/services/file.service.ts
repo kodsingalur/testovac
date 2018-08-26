@@ -43,7 +43,7 @@ export class FileService {
       });
     });
   }
-
+  
   /***
    * Po prihlaseni nastavi token
    */
@@ -66,7 +66,7 @@ export class FileService {
     this.saveToFile(id, text);
     }
   }
-
+  
   /***
    * Ulozi test do noveho souboru.
    */
@@ -75,9 +75,9 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
-    this.httpClient.post("https://www.googleapis.com/upload/drive/v3/files", text, {
+    this.httpClient.post('https://www.googleapis.com/upload/drive/v3/files', text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
@@ -85,7 +85,7 @@ export class FileService {
       })
     }).subscribe(res => console.log('ID ' + res['id']));
   }
-
+  
   /***
    * Ulozi test do souboru s dle id.
    */
@@ -99,8 +99,8 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.patch("https://www.googleapis.com/upload/drive/v3/files/" + id, text, {
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    this.httpClient.patch('https://www.googleapis.com/upload/drive/v3/files/' + id, text, {
       headers: new HttpHeaders({
         'Content-Type': 'text/xml',
         'id': id,
@@ -116,7 +116,7 @@ export class FileService {
   public isSignedIn() {
     return this.auth2 && this.auth2.getAuthInstance().isSignedIn;
   }
-
+  
   /***
    * Nacte test ze souboru dle id. Pokud neni uzivatel prihlasen, prihlasi jej.
    */
@@ -140,8 +140,8 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
-    let authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
-    this.httpClient.get("https://www.googleapis.com/drive/v3/files/" + id + "?alt=media", {
+    const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
+    return this.httpClient.get('https://www.googleapis.com/drive/v3/files/' + id + '?alt=media', {
       responseType: 'text', headers: new HttpHeaders({
         'mimeType': 'text/xml',
         'Authorization': 'Bearer ' + authtoken,
@@ -149,7 +149,7 @@ export class FileService {
     }).toPromise();
 
   }
-
+  
   /***
    * Nacte test ze souboru dle id bez prihlaseni.
    */
