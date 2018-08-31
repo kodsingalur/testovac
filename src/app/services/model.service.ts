@@ -54,7 +54,10 @@ export class ModelService {
   /** nacte test dle id, 0 znamena novy test*/
   loadTest(id) {
     return new Promise<TestDefinition>((resolve, reject) => {
-      if (id && (id && (id !== '0'))) {
+
+      if (id && (!this.test) && (id === 'mock')) {
+        this.useMockTest();
+      } else if (id && (!this.test) && (id !== '0')) {
         if (id !== this.id) {
           this.id = id;
           this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test); });
@@ -190,6 +193,35 @@ export class ModelService {
       }
     });
     return result;
+  }
+
+  public useMockTest(){
+    this.test = new TestDefinition();
+    this.test.name = 'Mock test';
+    this.test.evaluationPanel = new AdjustableDefinition(PointsPanelComponent);
+    this.test.questionApproach = new AdjustableDefinition(OneByOne);
+    this.test.finishPanel = new AdjustableDefinition(StatisticPanelComponent);
+    this.test.exercisesApproach = null;
+     const exercise = this.test.createExercise();
+    exercise.name = 'MockExercise';
+    exercise.text = 'Contetn text';
+    exercise.tasksApproach = new AdjustableDefinition(OneByOneTask);
+     const task = exercise.createTask();
+    task.taskPanel = new AdjustableDefinition(ShowTaskComponent);
+    task.questionPanel = new AdjustableDefinition(ShowQuestionComponent);
+    task.answerApproach = new AdjustableDefinition(SameAsInDefinition);
+    task.answerPanel = new AdjustableDefinition(WriteAnswerComponent);
+    task.rightAnswerAlgorithm = new AdjustableDefinition(ExactlySame);
+     let question = exercise.createQuestion();
+    question.text = 'Pokusna otazka';
+    let answer = question.createAnswer();
+    let answerC = answer.createAnswer();
+    answerC.text = 'Odpoved';
+     question = exercise.createQuestion();
+    question.text = 'Pokusna otazka 2';
+    answer = question.createAnswer();
+    answerC = answer.createAnswer();
+    answerC.text = 'Odpoved';
   }
 
   constructor(protected file: FileService) {
