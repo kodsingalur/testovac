@@ -25,6 +25,8 @@ import { AnswerPanelWraperComponent } from 'app/component/runing/answer-panel-wr
 import { FileService } from './services/file.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
     GoogleApiModule,
@@ -32,7 +34,7 @@ import {
     GoogleAuthService,
     NgGapiClientConfig,
     NG_GAPI_CONFIG,
-    GoogleApiConfig
+    GoogleApiConfig,
 } from 'ng-gapi';
 import { ChooseAnswerComponent } from './component/definitions/choose-answer/choose-answer.component';
 
@@ -49,7 +51,7 @@ const gapiClientConfig: NgGapiClientConfig = {
 };
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, HttpClientModule, GoogleApiModule.forRoot({
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, HttpClientModule, MatDialogModule, BrowserAnimationsModule, GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     })],
@@ -61,6 +63,6 @@ const gapiClientConfig: NgGapiClientConfig = {
   bootstrap:    [ AppComponent ],
   providers: [ModelService, FileService],
   entryComponents: [PointsPanelComponent, GamePanelComponent, ParamPanelComponent, ShowTaskComponent,
-       ShowQuestionComponent, WriteAnswerComponent, StatisticPanelComponent]
+       ShowQuestionComponent, WriteAnswerComponent, StatisticPanelComponent, ChooseAnswerComponent]
 })
 export class AppModule { }

@@ -1,4 +1,8 @@
 
 <div *ngFor="let answer of answers">
-	<label>{{answer.text}}</label>
+	<label (click)="open($event, answer)"><span *ngFor="let question of answer.questions; let last = last;">{{question.question.text}}<span *ngIf="!last">, </span></span> - {{answer.text}}</label>
 </div>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+</mat-dialog-actions>

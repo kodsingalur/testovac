@@ -1,11 +1,14 @@
+<div *ngIf="question">
 	<h1>Question definition</h1>
-  <app-content [(model)]="question"></app-content>
+	<app-content [(model)]="question"></app-content>
 	<label>Answers</label>
-  <button (click)="question.createAnswer()">Add</button>
-  <li *ngFor="let answer of question.answers">
-      <label>{{answer.answer?.text}}</label>
-      <button routerLink="answer/{{answer.getOrder()}}">Edit</button>
-      <button (click)="question.deleteAnswer(answer)">Delete</button>
-  </li>
-  <button routerLink="../..">Back</button>
-
+	<button (click)="question.createAnswer()">Add</button>
+	<button (click)="linkAnswer()">Link</button>
+	<ul>
+		<li *ngFor="let answer of question.answers"><label>{{answer.answer?.text}}</label>
+			<button routerLink="answer/{{answer.getOrder()}}">Edit</button>
+			<button (click)="question.deleteAnswer(answer)">Delete</button></li>
+	</ul>
+	<button routerLink="../..">Back</button>
+</div>
+<div *ngIf="!question">Načítá se...</div>

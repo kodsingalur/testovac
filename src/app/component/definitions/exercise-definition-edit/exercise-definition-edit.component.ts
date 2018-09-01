@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
-import { ModelService } from 'app/services/model.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ExerciseDefinition} from 'app/model/definitions/exercise-definition';
+import {ModelService} from 'app/services/model.service';
 
 @Component({
   selector: 'app-exercise-definition-edit',
@@ -14,8 +14,11 @@ export class ExerciseDefinitionEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, protected model: ModelService) {}
 
   ngOnInit() {
-    const id = +this.route.snapshot.paramMap.get('exercise_order');
-    this.exercise = this.model.test.exercises[id];
+    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test) => {
+      const idExercise = +this.route.snapshot.paramMap.get('exercise_order');
+      this.exercise = this.model.test.exercises[idExercise];
+    });
+
   }
 
 }

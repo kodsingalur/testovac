@@ -1,29 +1,30 @@
-<div>
+<div *ngIf="exercise">
 	<h1>Exercise definition</h1>
-	<label>Name:
-      <input [(ngModel)]="exercise.name">
-    </label>
-	<br>
-  <app-content [(model)]="exercise"></app-content>
-  <app-select-adjustable label="Tasks approach" [(model)]="exercise.tasksApproach" [options]="model.getAdjustable('TasksApproach')"></app-select-adjustable>
+	<label>Name: <input [(ngModel)]="exercise.name">
+	</label> <br>
+	<app-content [(model)]="exercise"></app-content>
+	<app-select-adjustable label="Tasks approach"
+		[(model)]="exercise.tasksApproach"
+		[options]="model.getAdjustable('TasksApproach')"></app-select-adjustable>
 
 	<label>Tasks</label>
-  <button (click)="exercise.createTask()">Add</button>
-  <div *ngFor="let task of exercise.tasks">
-      <label>{{task}}</label>
-      <button routerLink="task/{{task.getOrder()}}">Edit</button>
-      <button (click)="exercise.deleteTask(task)">Delete</button>
-  </div>
+	<button (click)="exercise.createTask()">Add</button>
+	<div *ngFor="let task of exercise.tasks">
+		<label>{{task}}</label>
+		<button routerLink="task/{{task.getOrder()}}">Edit</button>
+		<button (click)="exercise.deleteTask(task)">Delete</button>
+	</div>
 
 	<label>Questions</label>
-  <button (click)="exercise.createQuestion()">Add</button>
-  <div *ngFor="let question of exercise.questions">
-      <label>{{question.text}}</label>
-      <button routerLink="question/{{question.getOrder()}}">Edit</button>
-      <button (click)="exercise.deleteQuestion(question)">Delete</button>
-  </div>
+	<button (click)="exercise.createQuestion()">Add</button>
+	<div *ngFor="let question of exercise.questions">
+		<label>{{question.text}}</label>
+		<button routerLink="question/{{question.getOrder()}}">Edit</button>
+		<button (click)="exercise.deleteQuestion(question)">Delete</button>
+	</div>
 
-<br>
-  <button routerLink="../..">Back</button>
+	<br>
+	<button routerLink="../..">Back</button>
 
 </div>
+<div *ngIf="!exercise">Načítá se...</div>

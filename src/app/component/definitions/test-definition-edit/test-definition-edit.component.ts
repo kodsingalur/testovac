@@ -19,10 +19,10 @@ export class TestDefinitionEditComponent implements OnInit {
   test: TestDefinition;
 
   constructor(protected model: ModelService, protected file: FileService, private route: ActivatedRoute)  {
-    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test) =>  {this.test = test; });
   }
 
   ngOnInit() {
+    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test) =>  {this.test = test; });
   }
 
   save() {

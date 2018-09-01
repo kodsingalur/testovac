@@ -63,7 +63,7 @@ export class FileService {
     if (!this.isSignedIn()) {
       this.signIn().then(() =>  {this.saveToFile(id, text); });
     } else {
-    this.saveToFile(id, text);
+      this.saveToFile(id, text);
     }
   }
 
@@ -75,6 +75,7 @@ export class FileService {
     if (!token) {
       throw new Error('no token set , authentication required');
     }
+
     const authtoken = sessionStorage.getItem(this.SESSION_STORAGE_KEY);
 
     this.httpClient.post('https://www.googleapis.com/upload/drive/v3/files', text, {
@@ -83,7 +84,7 @@ export class FileService {
         'Authorization': 'Bearer ' + authtoken,
         'name': 'test.xml'
       })
-    }).subscribe(res => console.log('ID ' + res['id']));
+    }).subscribe(res => this.router.navigate(['/' + res['id'] + '/testedit']));
   }
 
   /***

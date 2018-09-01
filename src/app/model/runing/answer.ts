@@ -1,20 +1,18 @@
+import { Changeable } from '../changeable/changeable';
 import { Exercise } from './exercise';
 import { Question } from './question';
 import { AnswerDefinition } from 'app/model/definitions/answer-definition';
 
-export class Answer {
+export class Answer extends Changeable {
   definition: AnswerDefinition;
   question: Question;
-  text: string;
-  private _answered: boolean;
 
-  get answered(): boolean{
-    return this._answered;
+  private _text: string;
+  get text(): string {
+    return this._text;
   }
-  set answered(value: boolean){
-    this._answered = value;
-    this.question.answered = this.question.answers.every((answer) =>  {
-      return answer.answered;
-    });
+  set text(text: string) {
+    this.onChange('text', this._text, text);
+    this._text = text;
   }
 }

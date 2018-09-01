@@ -1,21 +1,33 @@
+import { Changeable } from '../changeable/changeable';
 import { Exercise } from './exercise';
 import { Answer } from './answer';
 import { QuestionDefinition } from 'app/model/definitions/question-definition';
 import { AnswerDefinition } from 'app/model/definitions/answer-definition';
 
-export class Question {
+export class Question extends Changeable {
   definition: QuestionDefinition;
   exercise: Exercise;
   answers: Answer[]= [];
-  right: boolean;
+
+  private _right: boolean;
+  get right(): boolean {
+    return this._right;
+  }
+  set right(right: boolean) {
+    this.onChange('right', this._right, right);
+    this._right = right;
+  }
 
   private _answered: boolean;
-
   get answered(): boolean{
     return this._answered;
   }
-  set answered(value: boolean){
-    this._answered = value;
+  set answered(answered: boolean){
+    this.onChange('answered', this._answered, answered);
+
+    this._answered = answered;
+
+    // TODO - vymazat, do callbacku
     if (this._answered) {
       (new this.exercise.task.rightAnswerAlgorithm.type()).run(this);
     }

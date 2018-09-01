@@ -1,3 +1,4 @@
+import { Changeable } from '../changeable/changeable';
 import { TasksApproach } from 'app/model/adjustable/tasks-approach';
 import { TestDefinition } from 'app/model/definitions/test-definition';
 import { Question } from './question';
@@ -10,16 +11,24 @@ import { QuestionsApproach } from 'app/model/adjustable/questions-approach';
 import { ExercisesApproach } from 'app/model/adjustable/exercises-approach';
 import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
 
-export class Test {
+export class Test extends Changeable {
   definition: TestDefinition;
   exercises: Exercise[] = [];
 
   evalPanel: EvaluationPanel;
   questionApproach: QuestionsApproach;
   exerciseApproach: ExercisesApproach;
-  finish: boolean;
   private taskApproaches: Map<ExerciseDefinition, TasksApproach> = new Map();
   private questionApproaches: Map<TaskDefinition, QuestionsApproach>;
+
+  private _finish: boolean;
+  get finish(): boolean {
+    return this._finish;
+  }
+  set finish(finish: boolean) {
+    this.onChange('finish', this._finish, finish);
+    this._finish = finish;
+  }
 
   /**
    * Vytvori model pro dalsi otazku - Exercise, Question i Answer.

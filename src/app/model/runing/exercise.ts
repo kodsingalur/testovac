@@ -1,26 +1,22 @@
+import { Changeable } from '../changeable/changeable';
 import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
 import { TaskDefinition } from 'app/model/definitions/task-definition';
 import { Question } from './question';
 import { Test } from './test';
 
-export class Exercise {
+export class Exercise extends Changeable {
   test: Test;
   task: TaskDefinition;
   definition: ExerciseDefinition;
   questions: Question[] = [];
-  onAnswered;
 
   private _answered: boolean;
 
   get answered(): boolean{
     return this._answered;
   }
-  set answered(value: boolean){
-    this._answered = value;
-    if (this.onAnswered) {
-      this.test.evalPanel.refresh(this);
-      this.onAnswered();
-    }
-
+  set answered(answered: boolean){
+    this.onChange('right', this._answered, answered);
+    this._answered = answered;
   }
 }

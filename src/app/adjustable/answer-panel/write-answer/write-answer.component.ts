@@ -21,6 +21,6 @@ export class WriteAnswerComponent extends AnswerPanel implements OnInit {
     this.renderer.selectRootElement('input').focus();
   }
   answered() {
-    this.answer.answered = true;
+    this.answer.question.answered = true;
   }
 }

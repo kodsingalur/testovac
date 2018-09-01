@@ -16,7 +16,7 @@ import {GamePanelComponent} from '../adjustable/evaluation/game-panel/game-panel
 import {RightOne} from '../adjustable/exercises-approach/right-one';
 import {ExactlySame} from '../adjustable/right-answer-algorithm/exactly-same';
 import {TestovacModel} from '../model/definitions/testovac-model';
-import { Adjustable } from '../model/adjustable/adjustable';
+import {Adjustable} from '../model/adjustable/adjustable';
 import {ExerciseDefinition} from '../model/definitions/exercise-definition';
 import {ParamValue} from '../model/definitions/param-value';
 import {QuestionAnswerDefinition} from '../model/definitions/question-answer-definition';
@@ -57,13 +57,13 @@ export class ModelService {
 
       if (id && (!this.test) && (id === 'mock')) {
         this.useMockTest();
-      } else if (id && (!this.test) && (id !== '0')) {
+      } else if (id && (id !== this.id) && (id !== '0')) {
         if (id !== this.id) {
           this.id = id;
-          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test); });
+          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test);});
           return;
         }
-      } else if (!this.test) {
+      } else if ((!this.test) && (this.id !== '0')) {
         this.test = new TestDefinition();
       }
       resolve(this.test);
@@ -195,29 +195,30 @@ export class ModelService {
     return result;
   }
 
-  public useMockTest(){
+  public useMockTest() {
+    this.id = "mock";
     this.test = new TestDefinition();
     this.test.name = 'Mock test';
     this.test.evaluationPanel = new AdjustableDefinition(PointsPanelComponent);
     this.test.questionApproach = new AdjustableDefinition(OneByOne);
     this.test.finishPanel = new AdjustableDefinition(StatisticPanelComponent);
     this.test.exercisesApproach = null;
-     const exercise = this.test.createExercise();
+    const exercise = this.test.createExercise();
     exercise.name = 'MockExercise';
     exercise.text = 'Contetn text';
     exercise.tasksApproach = new AdjustableDefinition(OneByOneTask);
-     const task = exercise.createTask();
+    const task = exercise.createTask();
     task.taskPanel = new AdjustableDefinition(ShowTaskComponent);
     task.questionPanel = new AdjustableDefinition(ShowQuestionComponent);
     task.answerApproach = new AdjustableDefinition(SameAsInDefinition);
     task.answerPanel = new AdjustableDefinition(WriteAnswerComponent);
     task.rightAnswerAlgorithm = new AdjustableDefinition(ExactlySame);
-     let question = exercise.createQuestion();
+    let question = exercise.createQuestion();
     question.text = 'Pokusna otazka';
     let answer = question.createAnswer();
     let answerC = answer.createAnswer();
     answerC.text = 'Odpoved';
-     question = exercise.createQuestion();
+    question = exercise.createQuestion();
     question.text = 'Pokusna otazka 2';
     answer = question.createAnswer();
     answerC = answer.createAnswer();

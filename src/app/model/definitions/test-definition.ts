@@ -1,8 +1,10 @@
+import {AnswerDefinition} from './answer-definition';
 import {ModelService} from 'app/services/model.service';
 import {ExercisesApproach} from 'app/model/adjustable/exercises-approach';
 import {QuestionsApproach} from 'app/model/adjustable/questions-approach';
 import {EvaluationPanel} from 'app/model/adjustable/evaluation-panel';
 import {ExerciseDefinition} from './exercise-definition';
+import {QuestionAnswerDefinition} from './question-answer-definition';
 import {FinishPanel} from 'app/model/adjustable/finish-panel';
 import {QuestionDefinition} from './question-definition';
 import {Type} from '@angular/core';
@@ -52,7 +54,11 @@ export class TestDefinition extends TestovacModel {
     let result = [];
 
     this.questions().forEach((question: QuestionDefinition) => {
-      result = result.concat(question.answers);
+      question.answers.forEach((answer: QuestionAnswerDefinition) => {
+        if (result.indexOf(answer.answer) == -1) {
+          result.push(answer.answer);
+        }
+      });
     });
     return result;
   }

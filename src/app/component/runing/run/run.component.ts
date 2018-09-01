@@ -48,6 +48,7 @@ export class RunComponent implements OnInit {
   }
 
   nextQuestion() {
+    // TODO - resit callbackama v komponentach
     if (this.taskPanel) {
       this.taskPanel.destroy();
     }
@@ -65,9 +66,11 @@ export class RunComponent implements OnInit {
       this.taskPanel = <ComponentRef<TaskPanel>> this.insertPanel(question.exercise.task.taskPanel);
 
       this.taskPanel.instance.exercise = question.exercise;
-      question.exercise.onAnswered = () => {
-        this.nextQuestion();
-      };
+      question.exercise.addChangeHandler(event =>  {
+        if (event.name === 'answerd' && event.newValue) {
+          this.nextQuestion();
+        }
+      });
     }
   }
 
