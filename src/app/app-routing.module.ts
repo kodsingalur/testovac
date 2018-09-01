@@ -5,7 +5,7 @@ import {ExerciseDefinitionEditComponent} from './component/definitions/exercise-
 import {TaskDefinitionEditComponent} from './component/definitions/task-definition-edit/task-definition-edit.component';
 import {QuestionDefinitionEditComponent} from './component/definitions/question-definition-edit/question-definition-edit.component';
 import {AnswerDefinitionEditComponent} from './component/definitions/answer-definition-edit/answer-definition-edit.component';
-import {RunComponent} from 'app/component/runing/run/run.component';
+import {RunComponent} from 'app/component/running/run/run.component';
 
 
 const routes: Routes = [

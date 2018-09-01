@@ -1,5 +1,5 @@
 import { AnswerApproach } from 'app/model/adjustable/answer-approach';
-import { Question } from 'app/model/runing/question';
+import { Question } from 'app/model/running/question';
 
 export class SameAsInDefinition extends AnswerApproach {
   static nameDef= 'Same as in definition';

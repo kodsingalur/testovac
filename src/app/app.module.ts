@@ -18,16 +18,15 @@ import { WriteAnswerComponent } from 'app/adjustable/answer-panel/write-answer/w
 import { ShowTaskComponent } from 'app/adjustable/task-panel/show-task/show-task.component';
 import { QuestionDefinitionEditComponent } from './component/definitions/question-definition-edit/question-definition-edit.component';
 import { AnswerDefinitionEditComponent } from './component/definitions/answer-definition-edit/answer-definition-edit.component';
-import { RunComponent } from 'app/component/runing/run/run.component';
+import { RunComponent } from 'app/component/running/run/run.component';
 import { ParamPanelComponent } from './component/definitions/param-panel/param-panel.component';
-import { QuestionPanelWraperComponent } from 'app/component/runing/question-panel-wraper/question-panel-wraper.component';
-import { AnswerPanelWraperComponent } from 'app/component/runing/answer-panel-wraper/answer-panel-wraper.component';
+import { QuestionPanelWraperComponent } from 'app/component/running/question-panel-wraper/question-panel-wraper.component';
+import { AnswerPanelWraperComponent } from 'app/component/running/answer-panel-wraper/answer-panel-wraper.component';
 import { FileService } from './services/file.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
     GoogleApiModule,
     GoogleApiService,
@@ -36,6 +35,7 @@ import {
     NG_GAPI_CONFIG,
     GoogleApiConfig,
 } from 'ng-gapi';
+
 import { ChooseAnswerComponent } from './component/definitions/choose-answer/choose-answer.component';
 
 const gapiClientConfig: NgGapiClientConfig = {
@@ -51,7 +51,8 @@ const gapiClientConfig: NgGapiClientConfig = {
 };
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, HttpClientModule, MatDialogModule, BrowserAnimationsModule, GoogleApiModule.forRoot({
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, HttpClientModule, MatDialogModule,
+      BrowserAnimationsModule, GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     })],

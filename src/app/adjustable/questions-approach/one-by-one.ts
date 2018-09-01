@@ -1,6 +1,6 @@
 import { QuestionsApproach } from 'app/model/adjustable/questions-approach';
 import { QuestionDefinition } from 'app/model/definitions/question-definition';
-import { Question } from 'app/model/runing/question';
+import { Question } from 'app/model/running/question';
 
 export class OneByOne extends QuestionsApproach {
   static nameDef = 'One by one';

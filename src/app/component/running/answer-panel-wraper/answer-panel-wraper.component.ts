@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { Answer } from 'app/model/runing/answer';
+import { Answer } from 'app/model/running/answer';
 import { AnswerPanel } from 'app/model/adjustable/answer-panel';
 
 @Component({

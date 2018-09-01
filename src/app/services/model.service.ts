@@ -21,11 +21,11 @@ import {ExerciseDefinition} from '../model/definitions/exercise-definition';
 import {ParamValue} from '../model/definitions/param-value';
 import {QuestionAnswerDefinition} from '../model/definitions/question-answer-definition';
 import {QuestionDefinition} from '../model/definitions/question-definition';
-import {Test} from '../model/runing/test';
+import {Test} from '../model/running/test';
 import {TaskDefinition} from '../model/definitions/task-definition';
-import {Question} from '../model/runing/question';
-import {Exercise} from '../model/runing/exercise';
-import {Answer} from '../model/runing/answer';
+import {Question} from '../model/running/question';
+import {Exercise} from '../model/running/exercise';
+import {Answer} from '../model/running/answer';
 import {FileService} from './file.service';
 
 import * as sxml from 'sxml';
@@ -60,7 +60,7 @@ export class ModelService {
       } else if (id && (id !== this.id) && (id !== '0')) {
         if (id !== this.id) {
           this.id = id;
-          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test);});
+          this.file.open(id).then(content => {this.test = this.testDefinitionFromXml(content); resolve(this.test); });
           return;
         }
       } else if ((!this.test) && (this.id !== '0')) {
@@ -196,7 +196,7 @@ export class ModelService {
   }
 
   public useMockTest() {
-    this.id = "mock";
+    this.id = 'mock';
     this.test = new TestDefinition();
     this.test.name = 'Mock test';
     this.test.evaluationPanel = new AdjustableDefinition(PointsPanelComponent);

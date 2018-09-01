@@ -2,8 +2,8 @@ import { EvaluationPanel } from 'app/model/adjustable/evaluation-panel';
 import { FinishPanel } from 'app/model/adjustable/finish-panel';
 import { TaskPanel } from 'app/model/adjustable/task-panel';
 import { ComponentRef, Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { Test } from 'app/model/runing/test';
-import { Question } from 'app/model/runing/question';
+import { Test } from 'app/model/running/test';
+import { Question } from 'app/model/running/question';
 
 import { ModelService } from 'app/services/model.service';
 import { Type } from '@angular/core';

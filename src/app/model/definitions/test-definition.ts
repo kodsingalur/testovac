@@ -51,11 +51,11 @@ export class TestDefinition extends TestovacModel {
   }
 
   answers() {
-    let result = [];
+    const result = [];
 
     this.questions().forEach((question: QuestionDefinition) => {
       question.answers.forEach((answer: QuestionAnswerDefinition) => {
-        if (result.indexOf(answer.answer) == -1) {
+        if (result.indexOf(answer.answer) === -1) {
           result.push(answer.answer);
         }
       });

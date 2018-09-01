@@ -1,5 +1,5 @@
 import { RightAnswerAlgorithm } from 'app/model/adjustable/right-answer-algorithm';
-import { Question } from 'app/model/runing/question';
+import { Question } from 'app/model/running/question';
 
 export class ExactlySame extends RightAnswerAlgorithm {
   static nameDef = 'Exactly same';

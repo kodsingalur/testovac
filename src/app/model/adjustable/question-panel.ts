@@ -1,4 +1,4 @@
-import { Question } from '../runing/question';
+import { Question } from '../running/question';
 import { Adjustable } from './adjustable';
 
 export abstract class QuestionPanel extends Adjustable {

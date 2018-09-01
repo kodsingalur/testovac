@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EvaluationPanel } from 'app/model/adjustable/evaluation-panel';
-import { Answer } from 'app/model/runing/answer';
-import { Exercise } from 'app/model/runing/exercise';
+import { Answer } from 'app/model/running/answer';
+import { Exercise } from 'app/model/running/exercise';
 
 @Component({
   selector: 'app-game-panel',

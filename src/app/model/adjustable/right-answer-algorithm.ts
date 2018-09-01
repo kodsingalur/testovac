@@ -1,5 +1,5 @@
 import { Adjustable } from './adjustable';
-import { Question } from '../runing/question';
+import { Question } from '../running/question';
 
 export abstract class RightAnswerAlgorithm extends Adjustable {
     static typeOfAdjustable = 'RightAnswerAlgorithm';

@@ -1,7 +1,7 @@
 import { TasksApproach } from 'app/model/adjustable/tasks-approach';
 import { QuestionDefinition } from 'app/model/definitions/question-definition';
-import { Question} from 'app/model/runing/question';
-import { Exercise} from 'app/model/runing/exercise';
+import { Question} from 'app/model/running/question';
+import { Exercise} from 'app/model/running/exercise';
 
 import { TaskDefinition } from 'app/model/definitions/task-definition';
 

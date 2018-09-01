@@ -24,7 +24,7 @@ export class QuestionDefinition extends Content {
   /**
  * vytvori vazbu mezi otazkou a odpovedi a spoji ji s otazkou i odpovedi
  */
-  linkAnswer(answer:AnswerDefinition) {
+  linkAnswer(answer: AnswerDefinition) {
     const link = this.createAnswer();
     link.answer = answer;
     answer.questions.push(link);

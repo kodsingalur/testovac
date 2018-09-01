@@ -1,7 +1,7 @@
 import { EvaluationPanel } from '../../../model/adjustable/evaluation-panel';
 import { Component, OnInit } from '@angular/core';
-import { Answer } from 'app/model/runing/answer';
-import { Exercise } from 'app/model/runing/exercise';
+import { Answer } from 'app/model/running/answer';
+import { Exercise } from 'app/model/running/exercise';
 import { Param } from 'app/model/definitions/param';
 
 @Component({

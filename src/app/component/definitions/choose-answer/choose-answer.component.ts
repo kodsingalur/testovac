@@ -18,7 +18,7 @@ export class ChooseAnswerComponent implements OnInit {
   public open(event, item) {
     this.dialogRef.close(item);
   }
-  public close (){
+  public close () {
     this.dialogRef.close(null);
   }
 }

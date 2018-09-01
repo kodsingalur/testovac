@@ -1,7 +1,7 @@
 import { Adjustable } from './adjustable';
 import { QuestionDefinition } from 'app/model/definitions/question-definition';
-import { Exercise } from 'app/model/runing/exercise';
-import { Question } from 'app/model/runing/question';
+import { Exercise } from 'app/model/running/exercise';
+import { Question } from 'app/model/running/question';
 import { TaskDefinition } from 'app/model/definitions/task-definition';
 
 export abstract class TasksApproach extends Adjustable {

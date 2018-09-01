@@ -1,5 +1,5 @@
 import { Adjustable } from './adjustable';
-import { Exercise } from '../runing/exercise';
+import { Exercise } from '../running/exercise';
 
 export abstract class TaskPanel extends Adjustable {
       static typeOfAdjustable = 'TaskPanel';
