@@ -4,6 +4,7 @@
   "homepage": "https://stackblitz.com/edit/testovac",
   "dependencies": {
     "@angular/cdk": "^6.4.7",
+    "@angular/material": "^6.4.7",
     "circular-json": "^0.5.5",
     "core-js": "2.5.1",
     "ng-gapi": "0.0.51",
