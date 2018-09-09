@@ -32,7 +32,7 @@ describe('ModelService', () => {
     expect(test.name).toBe("XmlTest");
   });
   
-  it('#getAdjustable should return xml', () => {
+  it('#getAdjustable should return WriteAnswerComponent', () => {
     let res = service.getAdjustable("AnswerPanel");
     let isWriteAnswerComponentThere = res.some(ad=>{
       return ad.type === WriteAnswerComponent;
