@@ -36,7 +36,7 @@ import XMLList = sxml.XMLList;
 export class ModelService {
   /** aktualni definice tesu*/
   test: TestDefinition;
-  /** id aktualni definice testu*/
+  /** id aktualni definice testu - id souboru na googledisku nebo mock nebo 0 pro novy test*/
   id: String;
   /** mapa trid */
   classMap: Map<String, Type<any>> = new Map();
@@ -51,7 +51,7 @@ export class ModelService {
   adjustableClasses = [SameAsInDefinition, WriteAnswerComponent, GamePanelComponent, PointsPanelComponent,
     RightOne, OneByOne, StatisticPanelComponent, ShowQuestionComponent, ExactlySame, ShowTaskComponent, OneByOneTask];
 
-  /** nacte test dle id, 0 znamena novy test*/
+  /** nacte test dle id, 0 znamena novy test, mock znamená mock test*/
   loadTest(id) {
     return new Promise<TestDefinition>((resolve, reject) => {
 
@@ -194,7 +194,8 @@ export class ModelService {
     });
     return result;
   }
-
+  
+  /*vytvori mock test a nastavi jej jako aktualni - slouzi pro testovani, pokud neni zadouci se pripojovat na googledisk */
   public useMockTest() {
     this.id = 'mock';
     this.test = new TestDefinition();
@@ -222,7 +223,7 @@ export class ModelService {
     question.text = 'Pokusna otazka 2';
     answer = question.createAnswer();
     answerC = answer.createAnswer();
-    answerC.text = 'Odpoved';
+    answerC.text = 'Odpoved 2';
   }
 
   constructor(protected file: FileService) {
