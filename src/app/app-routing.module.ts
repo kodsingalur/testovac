@@ -9,14 +9,14 @@ import {RunComponent} from 'app/component/running/run/run.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/1LAgksHdsjZ9qEKiiFsjgPcVsj6ytZbNM/testedit', pathMatch: 'full'},
+  {path: '', redirectTo: '/mock/testedit', pathMatch: 'full'},
   {path: ':testid/testedit', component: TestDefinitionEditComponent},
   {path: ':testid/testedit/exercise/:exercise_order', component: ExerciseDefinitionEditComponent},
   {path: ':testid/testedit/exercise/:exercise_order/task/:task_order', component: TaskDefinitionEditComponent},
   {path: ':testid/testedit/exercise/:exercise_order/question/:question_order', component: QuestionDefinitionEditComponent},
   {path: ':testid/testedit/exercise/:exercise_order/question/:question_order/answer/:answer_order',
     component: AnswerDefinitionEditComponent},
-  {path: 'run', component: RunComponent}
+  {path: ':testid/run', component: RunComponent}
 ];
 
 @NgModule({

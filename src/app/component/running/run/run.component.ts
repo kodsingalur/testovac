@@ -1,14 +1,15 @@
-import { EvaluationPanel } from 'app/model/adjustable/evaluation-panel';
-import { FinishPanel } from 'app/model/adjustable/finish-panel';
-import { TaskPanel } from 'app/model/adjustable/task-panel';
-import { ComponentRef, Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { Test } from 'app/model/running/test';
-import { Question } from 'app/model/running/question';
+import {EvaluationPanel} from 'app/model/adjustable/evaluation-panel';
+import {FinishPanel} from 'app/model/adjustable/finish-panel';
+import {TaskPanel} from 'app/model/adjustable/task-panel';
+import {ComponentRef, Component, OnInit, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
+import {Test} from 'app/model/running/test';
+import {Question} from 'app/model/running/question';
 
-import { ModelService } from 'app/services/model.service';
-import { Type } from '@angular/core';
-import { Adjustable } from 'app/model/adjustable/adjustable';
-import { AdjustableDefinition } from 'app/model/definitions/adjustable-definition';
+import {ModelService} from 'app/services/model.service';
+import {Type} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Adjustable} from 'app/model/adjustable/adjustable';
+import {AdjustableDefinition} from 'app/model/definitions/adjustable-definition';
 
 
 @Component({
@@ -21,30 +22,32 @@ export class RunComponent implements OnInit {
   taskPanel: ComponentRef<TaskPanel>;
 
   constructor(protected model: ModelService, public viewContainerRef: ViewContainerRef,
-     private componentFactoryResolver: ComponentFactoryResolver) { }
+    private componentFactoryResolver: ComponentFactoryResolver, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.test = new Test();
-    this.test.definition = this.model.test;
+    this.model.loadTest(this.route.snapshot.paramMap.get('testid')).then((test) => {
+      this.test = new Test();
+      this.test.definition = this.model.test;
 
-    this.viewContainerRef.clear();
+      this.viewContainerRef.clear();
 
-    const testDefinition = this.test.definition;
+      const testDefinition = this.test.definition;
 
-    // vytvori se instance, ktere se budou drzet cely test
-    if (testDefinition.evaluationPanel) {
-      this.test.evalPanel = <EvaluationPanel>this.insertPanel(testDefinition.evaluationPanel).instance;
-      this.test.evalPanel.test = this.test;
-    }
-    if (testDefinition.questionApproach) {
-      this.test.questionApproach = new testDefinition.questionApproach.type();
-      this.test.questionApproach.test = this.test;
-    } else {
-      this.test.exerciseApproach = new testDefinition.exercisesApproach.type();
-      this.test.exerciseApproach.test = this.test;
-    }
+      // vytvori se instance, ktere se budou drzet cely test
+      if (testDefinition.evaluationPanel) {
+        this.test.evalPanel = <EvaluationPanel>this.insertPanel(testDefinition.evaluationPanel).instance;
+        this.test.evalPanel.test = this.test;
+      }
+      if (testDefinition.questionApproach) {
+        this.test.questionApproach = new testDefinition.questionApproach.type();
+        this.test.questionApproach.test = this.test;
+      } else {
+        this.test.exerciseApproach = new testDefinition.exercisesApproach.type();
+        this.test.exerciseApproach.test = this.test;
+      }
 
-    this.nextQuestion();
+      this.nextQuestion();
+    });
   }
 
   nextQuestion() {
@@ -63,10 +66,10 @@ export class RunComponent implements OnInit {
         alert('Konec');
       }
     } else {
-      this.taskPanel = <ComponentRef<TaskPanel>> this.insertPanel(question.exercise.task.taskPanel);
+      this.taskPanel = <ComponentRef<TaskPanel>>this.insertPanel(question.exercise.task.taskPanel);
 
       this.taskPanel.instance.exercise = question.exercise;
-      question.exercise.addChangeHandler(event =>  {
+      question.exercise.addChangeHandler(event => {
         if (event.name === 'answerd' && event.newValue) {
           this.nextQuestion();
         }
