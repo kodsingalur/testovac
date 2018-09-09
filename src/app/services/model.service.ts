@@ -71,12 +71,12 @@ export class ModelService {
   }
 
   /** vrati tridu dle jmena*/
-  getClassForName(name) {
+  private getClassForName(name) {
     return this.classMap.get(name);
   }
 
   /** vytvori novou instanci dle jmena*/
-  newTestovacModel(name) {
+  private newTestovacModel(name) {
     const typeT = this.getClassForName(name);
     if (typeT) {
       return new typeT();
@@ -214,16 +214,23 @@ export class ModelService {
     task.answerApproach = new AdjustableDefinition(SameAsInDefinition);
     task.answerPanel = new AdjustableDefinition(WriteAnswerComponent);
     task.rightAnswerAlgorithm = new AdjustableDefinition(ExactlySame);
-    let question = exercise.createQuestion();
+
+    const question = exercise.createQuestion();
     question.text = 'Pokusna otazka';
     let answer = question.createAnswer();
     let answerC = answer.createAnswer();
     answerC.text = 'Odpoved';
-    question = exercise.createQuestion();
-    question.text = 'Pokusna otazka 2';
-    answer = question.createAnswer();
+
+    const question2 = exercise.createQuestion();
+    question2.text = 'Pokusna otazka 2';
+    answer = question2.createAnswer();
     answerC = answer.createAnswer();
     answerC.text = 'Odpoved 2';
+
+    answer = question.createAnswer();
+    answerC = answer.createAnswer();
+    answerC.text = 'Spolecna odpoved';
+    question2.linkAnswer(answerC);
   }
 
   constructor(protected file: FileService) {
