@@ -1,24 +1,23 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "importHelpers": true,
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "moduleResolution": "node",
     "lib": [
-      "es2016",
+      "es2018",
       "dom"
-    ],
-    "module": "es2015",
-    "baseUrl": "./"
-  },
-  "exclude": [
-    "node_modules/tstl"
-  ]
+    ]
+  }
 }
