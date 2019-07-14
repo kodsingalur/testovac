@@ -16,7 +16,7 @@ export class Exercise extends Changeable {
     return this._answered;
   }
   set answered(answered: boolean){
-    this.onChange('right', this._answered, answered);
+    this.onChange('answered', this._answered, answered);
     this._answered = answered;
   }
 }

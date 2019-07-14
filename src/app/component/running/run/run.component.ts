@@ -70,7 +70,7 @@ export class RunComponent implements OnInit {
 
       this.taskPanel.instance.exercise = question.exercise;
       question.exercise.addChangeHandler(event => {
-        if (event.name === 'answerd' && event.newValue) {
+        if (event.name === 'answered' && event.newValue) {
           this.nextQuestion();
         }
       });

@@ -1,7 +1,9 @@
 import { TasksApproach } from 'app/model/adjustable/tasks-approach';
 import { QuestionDefinition } from 'app/model/definitions/question-definition';
+import { ExerciseDefinition } from 'app/model/definitions/exercise-definition';
 import { Question} from 'app/model/running/question';
 import { Exercise} from 'app/model/running/exercise';
+import { Test } from 'app/model/running/test';
 
 import { TaskDefinition } from 'app/model/definitions/task-definition';
 
@@ -15,14 +17,18 @@ export class OneByOne extends TasksApproach {
     return this.getForExercise(question.exercise);
   }
 
-  getForExercise(exercise: Exercise): TaskDefinition {
-    const count = exercise.test.countExercises(exercise.definition);
-    const tasks = exercise.definition.tasks;
+  getForTest(test: Test, exerciseDefinition: ExerciseDefinition): TaskDefinition {
+    const count = test.countExercises(exerciseDefinition);
+    const tasks = exerciseDefinition.tasks;
     if (count < tasks.length) {
       return tasks[count];
     } else {
-      exercise.test.finish = true;
+      test.finish = true;
     }
+  }
+
+  getForExercise(exercise: Exercise): TaskDefinition {
+    return this.getForTest(exercise.test, exercise.definition);
   }
 
 }

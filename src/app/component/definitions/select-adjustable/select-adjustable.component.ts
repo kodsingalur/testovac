@@ -22,10 +22,9 @@ export class SelectAdjustableComponent implements OnInit {
 
   onChange() {
     this.modelChange.emit(this.model);
-    this.viewContainerRef.clear();
-
-    if (this.model && this.model.type.prototype.params) {
-      this.model.type.prototype.params.forEach((paramDefinition) => {
+	this.viewContainerRef.clear();
+    if (this.model && this.model.type.params) {
+	  this.model.type.params.forEach((paramDefinition) => {
 
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ParamPanelComponent);
 
@@ -39,7 +38,7 @@ export class SelectAdjustableComponent implements OnInit {
     }
   }
   constructor(public viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver) {}
-  ngOnInit() {
+    ngOnInit() {
     this.onChange();
   }
 

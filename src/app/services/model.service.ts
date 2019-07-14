@@ -85,7 +85,7 @@ export class ModelService {
     }
   }
 
-  /** prevedo objekt na xml */
+  /** prevede objekt na xml */
   private toXml(model: TestovacModel, name, map: Map<Object, number>): XML {
     const xml = new XML();
     xml.setTag(name);
@@ -108,7 +108,6 @@ export class ModelService {
       const propertyName = array[i];
       const propertyValue = model[propertyName];
       if (Array.isArray(propertyValue)) {
-        const xmlList = new XMLList();
         for (let j = 0; j < propertyValue.length; j++) {
           if (propertyValue[j]) {
             const subXml = this.toXml(propertyValue[j], propertyName, map);
@@ -117,7 +116,9 @@ export class ModelService {
         }
       } else if (propertyValue instanceof Type) {
         xml.insertValue(propertyName, propertyValue.typeOfAdjustable + ' ' + propertyValue.name).setProperty('type', 'Type');
-      } else if (propertyValue instanceof Object) {
+      } else if (typeof propertyValue === 'boolean') {
+		xml.insertValue(propertyName, propertyValue ? 'true' : 'false').setProperty('type', typeof propertyValue);
+	  } else if (propertyValue instanceof Object) {
         const subXml = this.toXml(propertyValue, propertyName, map);
         xml.push(subXml);
       } else if (propertyValue) {
@@ -135,7 +136,7 @@ export class ModelService {
       return xml.getValue();
     } else if (typeProp === 'number') {
       return parseInt(xml.getValue(), 10);
-    } else if (typeProp === 'number') {
+    } else if (typeProp === 'boolean') {
       return xml.getValue() === 'true';
     } else if (typeProp === 'Type') {
       return this.getClassForName(xml.getValue());
@@ -176,6 +177,8 @@ export class ModelService {
 
   /** prevede definici test na xml */
   public testDefinitionToXml(test: TestDefinition): string {
+	      console.log(test);
+
     return this.toXml(test, '', new Map()).toString();
   }
 

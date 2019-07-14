@@ -36,10 +36,23 @@ export class Test extends Changeable {
    * nebo TestDefinition.exerciseApproach, ExerciseDefinition.taskApproach, TaskDefinition.questionApproach, TaskDefinition.answerApproach
    */
   nextQuestion(): Question {
-    let question;
+	let question;
+
+	if (this.finish) {
+      return null;
+    }
+
     if (this.questionApproach) {
-      question = this.createQuestion(this.questionApproach.nextQuestion(), null);
-      question.exercise.task = this.getTaskApproach(question.exercise.definition).getForQuestion(question);
+	  let questionDef:QuestionDefinition = this.questionApproach.nextQuestion();
+	  console.log(questionDef);
+	  let task = this.getTaskApproach(questionDef.exercise).getForTest(this, questionDef.exercise);
+	  
+	  if (this.finish) {
+        return null;
+      }
+
+	  question = this.createQuestion(questionDef, null);
+	  question.exercise.task = task;
     } else {
       const exerciseDefinition = this.exerciseApproach.nextExercise();
       if (this.finish) {
@@ -51,12 +64,14 @@ export class Test extends Changeable {
       exercise.test = this;
       this.exercises.push(exercise);
 
-      exercise.task = this.getTaskApproach(exerciseDefinition).getForExercise(exercise);
+	  exercise.task = this.getTaskApproach(exerciseDefinition).getForExercise(exercise);
+
       if (this.finish) {
         return null;
       }
 
-      const questionDefinition = this.getQuestionApproach(exercise.task).nextQuestion();
+	  const questionDefinition = this.getQuestionApproach(exercise.task).nextQuestion();
+
       question = this.createQuestion(questionDefinition, exercise);
     }
     if (this.finish) {
@@ -120,6 +135,21 @@ export class Test extends Changeable {
     });
     return result;
   }
+
+  /*
+   * Spocita vsechny správně zodpovezene otazky
+   */
+  countRightQuestions() {
+    let result = 0;
+
+    this.questions().forEach((question) => {
+      if (question.right) {
+        result++;
+      }
+    });
+    return result;
+  }
+
   /*
    * Spocita vsechny zodpovezene otazky
    */

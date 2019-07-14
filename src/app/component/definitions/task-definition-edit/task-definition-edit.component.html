@@ -1,6 +1,6 @@
 <div *ngIf="task">
   <h1>Task definition</h1>
-  <app-select-adjustable label="Question approach" [(model)]="task.questionApproach" [options]="model.getAdjustable('QuestionApproach')"></app-select-adjustable>
+  <app-select-adjustable label="Question approach" [(model)]="task.questionApproach" [options]="model.getAdjustable('QuestionsApproach')"></app-select-adjustable>
   <app-select-adjustable label="Question panel" [mandatory]="true" [(model)]="task.questionPanel" [options]="model.getAdjustable('QuestionPanel')"></app-select-adjustable>
   <app-select-adjustable label="Answer panel" [mandatory]="true" [(model)]="task.answerPanel" [options]="model.getAdjustable('AnswerPanel')"></app-select-adjustable>
   <app-select-adjustable label="Task panel" [(model)]="task.taskPanel" [options]="model.getAdjustable('TaskPanel')"></app-select-adjustable>
